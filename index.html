@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Study Hub — Kawphun</title>
+<style>
+:root { color-scheme: dark; }
+*{box-sizing:border-box;margin:0;padding:0;}
+body {
+  font-family:'Segoe UI',system-ui,sans-serif;
+  background:#0F172A; color:#E2E8F0;
+  min-height:100vh;
+  display:flex; flex-direction:column;
+}
+
+/* Header */
+.hdr {
+  background:linear-gradient(135deg,#1F4E79 0%,#2E75B6 100%);
+  padding:28px 24px 22px; text-align:center; color:#fff;
+}
+.hdr-tag {
+  display:inline-block;
+  background:rgba(255,255,255,.15);
+  border-radius:20px; padding:3px 12px;
+  font-size:11px; font-weight:600; letter-spacing:.5px;
+  margin-bottom:12px;
+}
+.hdr h1 { font-size:24px; font-weight:800; margin-bottom:6px; }
+.hdr p { font-size:13px; opacity:.75; }
+.hdr-badges {
+  display:flex; justify-content:center;
+  gap:8px; flex-wrap:wrap; margin-top:14px;
+}
+.badge {
+  background:rgba(255,255,255,.15);
+  border-radius:20px; padding:4px 12px;
+  font-size:11px; font-weight:600;
+}
+
+/* Main */
+.main {
+  flex:1; padding:28px 20px;
+  max-width:700px; margin:0 auto; width:100%;
+}
+
+/* Cards */
+.cards { display:grid; gap:16px; grid-template-columns:1fr 1fr; }
+.card {
+  background:#1E293B;
+  border:1px solid #334155;
+  border-radius:14px; padding:22px;
+  text-decoration:none; color:#E2E8F0;
+  display:flex; flex-direction:column; gap:10px;
+  transition:transform .2s, border-color .2s, box-shadow .2s;
+  cursor:pointer;
+}
+.card:hover {
+  transform:translateY(-3px);
+  border-color:#2E75B6;
+  box-shadow:0 8px 24px rgba(46,117,182,.25);
+}
+.card-icon { font-size:32px; }
+.card-title { font-size:16px; font-weight:700; }
+.card-desc { font-size:12.5px; color:#94A3B8; line-height:1.55; flex:1; }
+.card-arrow {
+  font-size:12px; color:#60A5FA; font-weight:600;
+  display:flex; align-items:center; gap:4px;
+  margin-top:4px;
+}
+
+/* Divider label */
+.section-label {
+  font-size:10px; font-weight:700;
+  text-transform:uppercase; letter-spacing:.6px;
+  color:#475569; margin:24px 0 12px;
+}
+
+/* Info card */
+.info-card {
+  background:#1E293B; border:1px solid #334155;
+  border-radius:12px; padding:16px 18px;
+  font-size:12.5px; color:#94A3B8; line-height:1.6;
+}
+.info-card strong { color:#E2E8F0; }
+
+/* Course progress mini */
+.prog-row {
+  display:flex; justify-content:space-between;
+  font-size:11px; color:#64748B; margin-bottom:6px;
+}
+.prog-track {
+  background:#334155; border-radius:20px; height:6px;
+}
+.prog-fill {
+  height:100%; border-radius:20px;
+  background:linear-gradient(90deg,#2E75B6,#60A5FA);
+  width:8.6%; /* 3/35 sessions */
+}
+
+/* Footer */
+footer {
+  text-align:center; padding:16px;
+  font-size:11px; color:#334155;
+  border-top:1px solid #1E293B;
+}
+
+@media(max-width:480px){
+  .cards { grid-template-columns:1fr; }
+  .hdr h1 { font-size:20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-tag">IELTS Academic</div>
+  <h1>Kawphun's Study Hub</h1>
+  <p>Target: Band 7.0–7.5 &nbsp;·&nbsp; Session-based adaptive course</p>
+  <div class="hdr-badges">
+    <span class="badge">📍 Session 3 / 35</span>
+    <span class="badge">✍️ Writing: ~6.0</span>
+    <span class="badge">🎯 Goal: 7.0+</span>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="section-label">Study Tools</div>
+  <div class="cards">
+
+    <a class="card" href="dashboard.html">
+      <div class="card-icon">📊</div>
+      <div class="card-title">Progress Dashboard</div>
+      <div class="card-desc">Official test score history, writing criterion breakdown, session log, and course progress tracker.</div>
+      <div class="card-arrow">Open dashboard →</div>
+    </a>
+
+    <a class="card" href="error_tracker.html">
+      <div class="card-icon">📝</div>
+      <div class="card-title">Error Tracker</div>
+      <div class="card-desc">37 documented grammar errors across 7 categories with corrections, explanations, and improvement tips.</div>
+      <div class="card-arrow">Open tracker →</div>
+    </a>
+
+  </div>
+
+  <div class="section-label">Course Progress</div>
+  <div class="info-card">
+    <div class="prog-row">
+      <span>Session 3 of 35 completed</span>
+      <span>8.6%</span>
+    </div>
+    <div class="prog-track"><div class="prog-fill"></div></div>
+    <br>
+    <strong>Current phase:</strong> Phase 1 — Writing Mastery (Sessions 1–18)<br>
+    <strong>Next session:</strong> S4 — Cohesion &amp; Coherence study<br>
+    <strong>Latest writing score:</strong> ~6.0 (honest, Session 3)
+  </div>
+
+  <div class="section-label">Latest Scores</div>
+  <div class="info-card">
+    <strong>Test 3 (most recent official):</strong>
+    Listening 7.5 &nbsp;·&nbsp; Reading 7.0 &nbsp;·&nbsp; Writing 6.0 &nbsp;·&nbsp; Speaking 6.0<br><br>
+    <strong>Priority errors:</strong> Plural nouns · Subject-verb agreement · Relative pronouns (where) · Verb form after modals
+  </div>
+
+</div>
+
+<footer>Last updated 29 May 2026 &nbsp;·&nbsp; KAWPHUNMAN/IELTS_WORKPLACE</footer>
+
+</body>
+</html>

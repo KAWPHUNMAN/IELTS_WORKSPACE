@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Error Tracker — Kawphun</title>
+<style>
+:root { color-scheme: light; }
+*{box-sizing:border-box;margin:0;padding:0;}
+
+/* ══ THEMES ══════════════════════════════════════════ */
+[data-theme="dark"] {
+  --bg:#0F172A; --surface:#1E293B; --surface2:#243448; --border:#334155;
+  --text:#E2E8F0; --muted:#94A3B8; --faint:#475569;
+  --accent:#60A5FA; --accent2:#3B82F6;
+  --err:#F87171; --err-bg:rgba(248,113,113,.13);
+  --fix:#4ADE80; --fix-bg:rgba(74,222,128,.13);
+  --note-bg:rgba(96,165,250,.07); --sum-bg:rgba(96,165,250,.05);
+  --track:#334155; --pill-active:#2563EB;
+  --hdr1:#1F4E79; --hdr2:#2E75B6;
+  --shadow:rgba(0,0,0,.4);
+}
+[data-theme="light"] {
+  --bg:#F1F5F9; --surface:#FFFFFF; --surface2:#F8FAFC; --border:#E2E8F0;
+  --text:#0F172A; --muted:#475569; --faint:#94A3B8;
+  --accent:#2563EB; --accent2:#1D4ED8;
+  --err:#DC2626; --err-bg:rgba(220,38,38,.08);
+  --fix:#16A34A; --fix-bg:rgba(22,163,74,.08);
+  --note-bg:rgba(37,99,235,.05); --sum-bg:rgba(37,99,235,.03);
+  --track:#E2E8F0; --pill-active:#2563EB;
+  --hdr1:#1E3A5F; --hdr2:#2563EB;
+  --shadow:rgba(0,0,0,.1);
+}
+[data-theme="claude"] {
+  --bg:#F2E8D5; --surface:#FBF4E6; --surface2:#F5EBD3; --border:#DDD0B3;
+  --text:#1C1208; --muted:#7A6040; --faint:#B09060;
+  --accent:#B45309; --accent2:#92400E;
+  --err:#9A3412; --err-bg:rgba(154,52,18,.10);
+  --fix:#166534; --fix-bg:rgba(22,101,52,.10);
+  --note-bg:rgba(180,83,9,.07); --sum-bg:rgba(180,83,9,.04);
+  --track:#DDD0B3; --pill-active:#B45309;
+  --hdr1:#78350F; --hdr2:#B45309;
+  --shadow:rgba(92,60,20,.2);
+}
+
+body {
+  font-family:'Segoe UI',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  min-height:100vh;
+  transition:background .3s, color .3s;
+}
+
+/* ══ HEADER ══════════════════════════════════════════ */
+.hdr {
+  background:linear-gradient(135deg, var(--hdr1) 0%, var(--hdr2) 100%);
+  padding:16px 20px 14px; color:#fff;
+}
+.hdr-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;}
+.hdr h1{font-size:17px;font-weight:700;}
+.hdr-sub{font-size:11px;opacity:.7;margin-top:2px;}
+.badges{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px;}
+.badge{background:rgba(255,255,255,.18);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:600;}
+
+/* ══ STICKY SETTINGS BAR ═════════════════════════════ */
+.settings-bar {
+  background:var(--surface);
+  border-bottom:2px solid var(--border);
+  padding:10px 20px;
+  display:flex; align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap; gap:10px;
+  position:sticky; top:0; z-index:100;
+  box-shadow:0 2px 8px var(--shadow);
+}
+.s-group{display:flex;align-items:center;gap:10px;}
+.s-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);}
+
+/* 3-way theme pill */
+.theme-pill{
+  display:flex; background:var(--track);
+  border-radius:22px; padding:3px; gap:2px;
+}
+.t-btn{
+  border:none; background:transparent; color:var(--muted);
+  padding:5px 13px; border-radius:18px;
+  font-size:12px; font-weight:600; cursor:pointer;
+  transition:all .25s; white-space:nowrap;
+}
+.t-btn.on{
+  background:var(--pill-active); color:#fff;
+  box-shadow:0 1px 4px rgba(0,0,0,.35);
+}
+[data-theme="claude"] .t-btn.on{color:#fff;}
+
+/* Eye toggle switch */
+.eye-wrap{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;}
+.eye-label{font-size:12px;font-weight:600;color:var(--muted);transition:color .2s;}
+.eye-switch{
+  position:relative; width:52px; height:26px;
+  background:var(--track); border-radius:13px;
+  border:none; cursor:pointer; transition:background .25s; flex-shrink:0;
+}
+.eye-switch.on{background:var(--pill-active);}
+.eye-knob{
+  position:absolute; top:3px; left:3px;
+  width:20px; height:20px;
+  background:#fff; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; transition:left .25s;
+  box-shadow:0 1px 4px rgba(0,0,0,.3);
+}
+.eye-switch.on .eye-knob{left:29px;}
+
+/* ══ MAIN ════════════════════════════════════════════ */
+.main{padding:16px;max-width:880px;margin:0 auto;}
+
+/* ══ SUMMARY CARD ════════════════════════════════════ */
+.sum-card{
+  background:var(--surface); border-radius:12px;
+  padding:20px; margin-bottom:18px;
+  border:1px solid var(--border);
+}
+.sum-title{font-size:15px;font-weight:700;color:var(--accent);margin-bottom:14px;}
+
+.prio-grid{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:10px; margin-bottom:16px;
+}
+.prio-tile{
+  background:var(--surface2); border-radius:8px;
+  padding:12px; border-left:3px solid;
+}
+.prio-tile.red{border-left-color:#ef4444;}
+.prio-tile.amber{border-left-color:#f59e0b;}
+.prio-tile.green{border-left-color:#22c55e;}
+.prio-tile.blue{border-left-color:#60a5fa;}
+.pt-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:5px;}
+.pt-val{font-size:13px;font-weight:700;color:var(--text);}
+.pt-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+
+.pri-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
+.pri-row{
+  display:flex; gap:10px; align-items:flex-start;
+  padding:10px 12px; background:var(--surface2);
+  border-radius:8px; font-size:13px; line-height:1.55;
+}
+.pri-dot{
+  width:22px;height:22px;border-radius:50%;
+  font-size:11px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:1px;
+}
+.pri-dot.r{background:rgba(239,68,68,.2);color:#ef4444;}
+.pri-dot.a{background:rgba(245,158,11,.2);color:#f59e0b;}
+.pri-dot.g{background:rgba(34,197,94,.2);color:#22c55e;}
+.pri-txt strong{color:var(--accent);}
+
+.insight{
+  background:var(--sum-bg); border:1px solid var(--border);
+  border-radius:8px; padding:12px 14px;
+  font-size:12.5px; line-height:1.65; color:var(--muted);
+}
+
+/* ══ CATEGORY CARDS ══════════════════════════════════ */
+.cat{
+  background:var(--surface); border-radius:12px;
+  margin-bottom:14px; border:1px solid var(--border);
+  overflow:hidden;
+}
+.cat-hdr{
+  display:flex; align-items:center; gap:10px;
+  padding:13px 16px;
+  border-left:4px solid;
+  cursor:pointer; user-select:none;
+  transition:background .15s;
+}
+.cat-hdr:hover{background:var(--surface2);}
+.cat-icon{font-size:18px;}
+.cat-name{font-size:14px;font-weight:700;flex:1;}
+.cat-badge{
+  font-size:10px;font-weight:700;
+  padding:3px 9px;border-radius:20px;color:#fff;
+}
+.chevron{font-size:11px;color:var(--faint);transition:transform .2s;}
+.cat.closed .chevron{transform:rotate(-90deg);}
+.cat-body{padding:0 16px 16px;}
+.cat.closed .cat-body{display:none;}
+
+.rec{
+  background:var(--note-bg); border-radius:8px;
+  padding:12px 14px; font-size:12.5px; line-height:1.65;
+  color:var(--muted); margin:14px 0 12px;
+  border-left:3px solid var(--accent);
+}
+.rec-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--accent);margin-bottom:4px;}
+
+/* ══ ERROR ENTRIES ════════════════════════════════════ */
+.entry{
+  border:1px solid var(--border); border-radius:8px;
+  margin-bottom:9px; overflow:hidden;
+}
+.entry-hdr{
+  display:flex; align-items:center; gap:7px;
+  padding:7px 12px; background:var(--surface2);
+  font-size:11px;
+}
+.e-num{font-weight:700;color:var(--muted);}
+.s-tag{background:var(--border);color:var(--muted);padding:1px 7px;border-radius:10px;font-size:10px;font-weight:600;}
+.entry-body{padding:11px 12px;display:flex;flex-direction:column;gap:8px;}
+
+.e-row{display:flex;gap:8px;align-items:flex-start;font-size:13px;line-height:1.6;}
+.e-ico{font-size:14px;flex-shrink:0;margin-top:2px;}
+.e-txt{flex:1;}
+
+/* Error annotation */
+.err{
+  color:var(--err);
+  text-decoration:underline;
+  text-decoration-color:var(--err);
+  text-decoration-thickness:2px;
+  text-underline-offset:2px;
+  background:var(--err-bg);
+  border-radius:3px; padding:0 2px;
+  font-weight:600;
+}
+/* Fix annotation */
+.fix{
+  color:var(--fix);
+  background:var(--fix-bg);
+  border-radius:3px; padding:0 2px;
+  font-weight:600;
+}
+/* Note text */
+.note-txt{font-size:12px;color:var(--muted);line-height:1.55;}
+
+/* HIDE CORRECTIONS (Option B: error underline stays, fix+note hidden) */
+body.hide-corr .fix-row{display:none;}
+body.hide-corr .note-row{display:none;}
+
+.cat-footer{
+  font-size:11px;color:var(--faint);
+  text-align:right;padding-top:6px;
+}
+
+/* ══ RESPONSIVE ══════════════════════════════════════ */
+@media(max-width:580px){
+  .prio-grid{grid-template-columns:1fr 1fr;}
+  .settings-bar{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════
+     DATA — Update this object after every session
+════════════════════════════════════════════════════ -->
+<script>
+const D = {
+  lastUpdated: "29 May 2026",
+  sessionsAnalysed: 3,
+  categories: [
+    {
+      id:"sva", icon:"⚖️", title:"Subject-Verb Agreement",
+      color:"#ef4444", priority:2, count:5,
+      rec:"Before choosing a verb, identify the true subject and check if it is singular or plural. The most common trap: a singular noun appearing near a plural one can confuse you into choosing the wrong verb. Underline the grammatical subject in each sentence and ask: 'is this one thing or more than one?' Then pick the matching verb. Watch especially for 'the government', 'a student', 'each person' — all singular, all need -s on the verb.",
+      errors:[
+        {s:1, w:"science <E>subject build</E> transferable skills.", f:"science <F>subjects build</F> transferable skills.", n:"'Science subject' is singular — but the intended meaning is plural 'subjects'. Plural subject → plural verb, no -s. Fix the noun first and the verb agreement follows."},
+        {s:1, w:"the money that the government <E>support</E>.", f:"the money that the government <F>supports</F>.", n:"'The government' is singular → third-person singular '-s' on the verb: 'supports', not 'support'."},
+        {s:1, w:"some students who <E>does not met</E> the academic criteria.", f:"some students who <F>do not meet</F> the academic criteria.", n:"'Some students' is plural → 'do not', not 'does not'. This error also involves verb form ('met' → 'meet') — see the Verb Form category."},
+        {s:1, w:"subjects <E>they interests</E> supports their development.", f:"subjects <F>that interest</F> them supports their development.", n:"'Subjects' is the subject of the relative clause — plural. The verb 'interest' takes no -s. A relative pronoun ('that') is also needed to connect the clause."},
+        {s:3, w:"the thinking skills where <E>it is</E> crucial in modern life.", f:"the thinking skills that/which <F>are</F> crucial in modern life.", n:"'Thinking skills' is plural → 'are', not 'is'. Also note: 'where' is wrong here — see Relative Clauses category."},
+      ]
+    },
+    {
+      id:"plural", icon:"🔢", title:"Plural & Singular Nouns",
+      color:"#f97316", priority:1, count:7,
+      rec:"This is your single highest-frequency error and the easiest to fix. In IELTS Academic writing, general references are almost always plural: subjects, skills, jobs, careers, opportunities, boundaries, ways, lives. Develop a proofreading habit: after finishing a sentence, scan each countable noun and ask 'one or many?' One key exception: 'every' always takes a singular noun — 'every student', never 'every students'. By contrast, 'all' takes plural — 'all students'.",
+      errors:[
+        {s:1, w:"they should study only <E>subject</E> that would be beneficial.", f:"they should study only <E>subjects</E> that would be beneficial.", n:"General reference to academic subjects → always plural 'subjects'. This error also appeared as 'science and technology subject' three times in Session 3."},
+        {s:1, w:"learning with no <E>boundary</E> may nurture creativity.", f:"learning with no <F>boundaries</F> may nurture creativity.", n:"'Boundary' is countable. Speaking of limits in general → plural 'boundaries'."},
+        {s:3, w:"science and technology <E>subject</E> [appeared 3 times].", f:"science and technology <F>subjects</F>.", n:"This exact error appeared three times in the same essay. Writing the correct plural once and staying consistent would have prevented all three instances."},
+        {s:1, w:"students should pay for their own <E>tuition fee</E>.", f:"students should pay for their own <F>tuition fees</F>.", n:"In formal and academic English, 'tuition fees' (plural) is the standard form when referring to the cost of study."},
+        {s:1, w:"making education free for every <E>students</E>.", f:"making education free for every <F>student</F>.", n:"'Every' always takes a singular countable noun: every student, every country, every person. Use 'all students' if you want the plural form."},
+        {s:2, w:"students can be ready when their <E>live</E> is changing.", f:"students can be ready when their <F>lives</F> are changing.", n:"'Live' is a verb ('I live here'). The noun is 'life' (singular) or 'lives' (plural). When referring to multiple students, use 'lives'."},
+        {s:1, w:"funds to be used in other beneficial <E>way</E>.", f:"funds to be used in other beneficial <F>ways</F>.", n:"Speaking generally about methods or options → plural 'ways'. Singular 'way' would refer to one specific method."},
+      ]
+    },
+    {
+      id:"clauses", icon:"🔗", title:"Relative Clauses & Pronouns",
+      color:"#8b5cf6", priority:3, count:4,
+      rec:"One rule, no exceptions: 'where' is only used for physical locations. For all other relative clauses use 'which' (for things), 'who' (for people), 'that' (for things or people), or 'in which / at which' for more formal academic writing. Each time you write 'where', stop and ask: 'Am I pointing to a physical place?' If not — change it. This error appeared in three consecutive sessions, which means it is an ingrained habit that needs conscious correction every time you write.",
+      errors:[
+        {s:3, w:"the thinking skills <E>where</E> it is crucial in modern life.", f:"the thinking skills <F>that/which</F> are crucial in modern life.", n:"'Thinking skills' is not a place. Use 'that' (less formal) or 'which' (more formal) to introduce a relative clause about a thing."},
+        {s:3, w:"certain tasks <E>where</E> they are specialized on.", f:"certain tasks <F>in which</F> they specialise.", n:"'Tasks' is not a place. In academic writing, 'in which' is preferred for prepositional relative clauses: 'tasks in which they specialise'."},
+        {s:2, w:"despite their young age <E>where</E> they could feel overwhelmed.", f:"despite their young age, <F>at which</F> they might feel overwhelmed.", n:"'Age' is a time concept, not a location. Use 'at which' ('an age at which') or restructure: 'despite being young and potentially overwhelmed by the experience'."},
+        {s:1, w:"subjects <E>they interests</E> supports their development.", f:"subjects <F>that interest</F> them supports their development.", n:"The relative pronoun 'that' is missing entirely. Without it, the clause 'they interests' is attached to 'subjects' with no grammatical connector. Always include the relative pronoun when connecting a clause to the noun it modifies."},
+      ]
+    },
+    {
+      id:"vocab", icon:"📖", title:"Word Choice & Collocation",
+      color:"#06b6d4", priority:5, count:9,
+      rec:"Collocation errors — using words that do not naturally travel together — are the primary barrier between Band 6 and Band 7 Lexical Resource. The solution is not memorising more individual words; it is learning which words appear together. For every noun you use often (achievement, opportunity, skill, career), look it up in the Oxford Collocations Dictionary and learn its natural verb and adjective partners. Pay close attention to prepositions after verbs: 'specialise in', 'result in', 'contribute to' — these are fixed and cannot be substituted.",
+      errors:[
+        {s:1, w:"<E>educators</E> need to pay for their own tuition fees.", f:"<F>students</F> need to pay for their own tuition fees.", n:"'Educators' means teachers, professors, and trainers — people who educate others. You intended 'students'. This is a meaning error: it states the opposite of the intended argument."},
+        {s:1, w:"potentially leads to a more <E>profound</E> country.", f:"potentially leads to a more <F>prosperous</F> country.", n:"'Profound' means deep, insightful, or emotionally significant (a profound idea / profound grief). A country that is wealthy and successful is 'prosperous', 'developed', or 'economically advanced'."},
+        {s:1, w:"could waste the money because of the <E>pure opportunities</E>.", f:"could waste the money <F>simply because the opportunity is available</F>.", n:"'Pure opportunities' is a non-existent collocation. You likely meant 'out of pure convenience', 'simply because they can', or 'owing to the availability of funding alone'."},
+        {s:1, w:"some students who are <E>troublesome</E>.", f:"some students who are <F>academically disengaged</F>.", n:"'Troublesome' is informal and implies problematic behaviour, not academic disengagement. In an IELTS essay, use 'unmotivated', 'academically disengaged', or 'lacking commitment to their studies'."},
+        {s:2, w:"students who are very early in their <E>learning state</E>.", f:"students who are at an early <F>stage of their development</F>.", n:"'Learning state' is not a natural English phrase. The correct noun is 'stage' (a point in a process), followed by 'of development', 'of education', or 'of their academic journey'."},
+        {s:3, w:"students will <E>show a better work quality</E> in their field.", f:"students will <F>produce higher-quality work</F> in their field.", n:"You cannot 'show a quality'. Use 'produce', 'demonstrate', or 'deliver' with quality. Also, 'high-quality' before a noun is a compound adjective and requires a hyphen."},
+        {s:3, w:"tasks where they are <E>specialized on</E>.", f:"tasks <F>in which they specialise</F>.", n:"The verb 'specialise' always collocates with 'in' — never 'on'. This is a fixed collocation: specialise in engineering, specialise in a field, specialists in their area."},
+        {s:1, w:"intrinsic motivation leads to <E>a higher</E> academic achievement.", f:"intrinsic motivation leads to <F>higher</F> academic achievement.", n:"'Academic achievement' used in this general sense is uncountable — it refers to the concept of achieving, not to countable achievements. Uncountable nouns do not take the article 'a'."},
+        {s:3, w:"students who study <E>their interests</E> will perform better.", f:"students who study <F>subjects that align with their interests</F> will perform better.", n:"You cannot 'study your interests' — interests are feelings or preferences, not subjects. Say 'study subjects that interest them', 'pursue their academic passions', or 'study in their area of interest'."},
+      ]
+    },
+    {
+      id:"verbform", icon:"🔧", title:"Verb Form & Structure",
+      color:"#f59e0b", priority:3, count:5,
+      rec:"Three rules to memorise and never break: (1) After a modal verb — will, can, should, must, would — the following verb is always the bare infinitive (base form). No -s, no -ed, no -ing. (2) After causative verbs — let, make, help, have — the following verb takes no 'to'. Say 'let students choose', never 'let students to choose'. (3) 'Well' is an adverb that modifies action verbs. It cannot follow 'be' as a standalone description of ability. Use 'perform well', 'do well', or 'excel'.",
+      errors:[
+        {s:3, w:"I believe this will ultimately <E>leads</E> to a more prosperous society.", f:"I believe this will ultimately <F>lead</F> to a more prosperous society.", n:"After the modal verb 'will', always use the base form. 'Will leads' is never grammatically correct in English."},
+        {s:2, w:"<E>letting students to choose</E> subjects they enjoy.", f:"<F>letting students choose</F> subjects they enjoy.", n:"Causative verbs (let, make, have, help) are followed by the bare infinitive — the base form with no 'to'. 'Let students choose', 'make students study', 'help students improve'."},
+        {s:1, w:"<E>By making tuition fee to be free</E> for all students.", f:"<F>By making tuition free</F> for all students.", n:"The pattern is 'make + object + adjective'. 'To be' is redundant after 'make'. Also: 'tuition fees' (plural) or simply 'tuition' (uncountable) — 'tuition fee' is singular and incorrect here."},
+        {s:1, w:"some students who does not <E>met</E> the academic criteria.", f:"some students who do not <F>meet</F> the academic criteria.", n:"'Met' is the past tense and past participle of 'meet'. After 'do not / does not', always use the bare infinitive: 'do not meet'. Never use the past tense form after an auxiliary."},
+        {s:2, w:"it could make them to <E>be exceptionally well</E> on certain tasks.", f:"it could enable them to <F>perform exceptionally well</F> on certain tasks.", n:"'Well' is an adverb. It cannot follow the verb 'be' as if it were an adjective describing a state. Use an action verb: 'perform well', 'do well', 'excel in'. Also: 'make them to' → 'enable them to' (see causative verb rule above)."},
+      ]
+    },
+    {
+      id:"prep", icon:"🔀", title:"Prepositions & Conjunctions",
+      color:"#10b981", priority:4, count:5,
+      rec:"Several of these errors appear to come from applying Thai sentence logic to English. Key fixes: (1) 'Despite' is a preposition that directly precedes a noun phrase — it never takes 'of'. Use 'Despite X' or, if you want 'of', switch to 'In spite of X'. (2) 'Agree' and 'disagree' are not used to introduce debate positions in an essay — use 'believe', 'argue', 'contend', or 'maintain'. (3) Prepositions after verbs are fixed — learn these as complete units: specialise in, result in, depend on, contribute to, focus on, aim at.",
+      errors:[
+        {s:2, w:"<E>Despite of</E> decreasing government funds.", f:"<F>Despite</F> the reduction in government funds.", n:"'Despite' never takes 'of'. It directly precedes the noun: 'Despite the problem', 'Despite the cost'. If you want to use 'of', switch the whole phrase to 'In spite of X'."},
+        {s:1, w:"some people <E>agree that</E> university education should be free.", f:"some people <F>argue/believe that</F> university education should be free.", n:"'Agree' implies accepting a position someone else has stated. To introduce a debate view from scratch, use 'believe', 'argue', 'contend', or 'maintain'."},
+        {s:1, w:"others <E>disagree that</E> students should pay.", f:"others <F>argue that</F> students should bear the cost.", n:"'Disagree that X should happen' grammatically means you think X should NOT happen — the opposite of what was intended. To introduce the view that students should pay, write 'others argue that students should pay'."},
+        {s:3, w:"tasks where they are <E>specialized on</E>.", f:"tasks <F>in which they specialise</F>.", n:"The correct collocation is always 'specialise in'. This applies universally: specialise in engineering, a doctor who specialises in cardiology, tasks they specialise in."},
+        {s:1, w:"it could be used <E>some where</E> else besides education.", f:"it could be used <F>somewhere</F> else besides education.", n:"'Somewhere' is one word, not two. The same pattern applies to all indefinite place words: anywhere, everywhere, nowhere, somewhere — all written as single words."},
+      ]
+    },
+    {
+      id:"structure", icon:"🏗️", title:"Sentence Structure & Fragments",
+      color:"#ec4899", priority:6, count:2,
+      rec:"Every English sentence needs one clear main subject and one main verb — that is the non-negotiable core. A prepositional phrase ('By doing X') or a participial phrase ('Finding Y') cannot serve as the grammatical subject. For complex sentences, write the subject-verb core first, then attach subordinate clauses. For a thesis statement specifically: it must be ONE sentence. Use subordinating conjunctions ('although', 'while', 'because') and commas to connect the concession, your position, and your reason into a single, well-formed sentence.",
+      errors:[
+        {s:1, w:"individuals will have a higher certainty to do well academically <E>c ,finding a better paying job, Hence, increasing the overall GDP</E>.", f:"individuals will perform better academically, <F>secure better-paying jobs, and thereby contribute to a higher national GDP</F>.", n:"Three separate ideas were strung together as fragments after a comma splice. Each idea should be a parallel verb phrase: 'perform better academically', 'secure better-paying jobs', 'contribute to a higher GDP'. The 'c' suggests this was an accidental keystroke left uncorrected."},
+        {s:2, w:"<E>Although students can be more creative. I believe by studying science subject. Students will have a better thinking process.</E>", f:"<F>Although studying freely may nurture creativity, I believe students should be guided toward science subjects because they develop the critical thinking skills essential for modern life.</F>", n:"A thesis statement must be one sentence. Three full stops created three disconnected fragments. Use 'although' for the concession, a comma, then 'I believe that... because...' for your position and reason — all within one complex sentence."},
+      ]
+    },
+  ]
+};
+</script>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-top">
+    <div>
+      <h1>📝 Grammar Error Tracker</h1>
+      <div class="hdr-sub">Kawphun — IELTS Academic</div>
+    </div>
+  </div>
+  <div class="badges">
+    <span class="badge" id="b-upd">—</span>
+    <span class="badge" id="b-tot">—</span>
+    <span class="badge" id="b-ses">—</span>
+  </div>
+</div>
+
+<!-- SETTINGS BAR -->
+<div class="settings-bar">
+  <div class="s-group">
+    <span class="s-label">Theme</span>
+    <div class="theme-pill">
+      <button class="t-btn on" data-t="dark"  onclick="setTheme('dark')">🌙 Dark</button>
+      <button class="t-btn"    data-t="light" onclick="setTheme('light')">☀️ Light</button>
+      <button class="t-btn"    data-t="claude" onclick="setTheme('claude')">✦ Claude</button>
+    </div>
+  </div>
+  <div class="s-group">
+    <div class="eye-wrap" onclick="toggleCorr()">
+      <span class="eye-label" id="corr-lbl">Corrections ON</span>
+      <button class="eye-switch on" id="eye-sw">
+        <div class="eye-knob" id="eye-k">👁</div>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="sum-card" id="sum"></div>
+  <div id="cats"></div>
+</div>
+
+<script>
+/* ── Badges ── */
+document.getElementById("b-upd").textContent = "Updated: " + D.lastUpdated;
+const total = D.categories.reduce((a,c)=>a+c.count,0);
+document.getElementById("b-tot").textContent = total + " errors documented";
+document.getElementById("b-ses").textContent = D.sessionsAnalysed + " sessions analysed";
+
+/* ── Theme ── */
+function setTheme(t) {
+  document.documentElement.setAttribute("data-theme", t);
+  document.querySelectorAll(".t-btn").forEach(b => b.classList.toggle("on", b.dataset.t===t));
+}
+
+/* ── Corrections toggle ── */
+let corrOn = true;
+function toggleCorr() {
+  corrOn = !corrOn;
+  document.body.classList.toggle("hide-corr", !corrOn);
+  document.getElementById("eye-sw").classList.toggle("on", corrOn);
+  document.getElementById("eye-k").textContent = corrOn ? "👁" : "🙈";
+  document.getElementById("corr-lbl").textContent = corrOn ? "Corrections ON" : "Corrections OFF";
+}
+
+/* ── Parse markup ── */
+function parse(s) {
+  return s.replace(/<E>(.*?)<\/E>/g,'<span class="err">$1</span>')
+          .replace(/<F>(.*?)<\/F>/g,'<span class="fix">$1</span>');
+}
+
+/* ── Summary ── */
+const byPri  = [...D.categories].sort((a,b)=>a.priority-b.priority);
+const byFreq = [...D.categories].sort((a,b)=>b.count-a.count);
+const first  = byPri[0], most = byFreq[0], least = byFreq[byFreq.length-1];
+
+document.getElementById("sum").innerHTML = `
+<div class="sum-title">🎯 Priority Recommendations</div>
+<div class="prio-grid">
+  <div class="prio-tile red">
+    <div class="pt-label">🔴 Fix First</div>
+    <div class="pt-val">${first.icon} ${first.title}</div>
+    <div class="pt-sub">${first.count} errors — highest urgency</div>
+  </div>
+  <div class="prio-tile amber">
+    <div class="pt-label">📊 Most Frequent</div>
+    <div class="pt-val">${most.icon} ${most.title}</div>
+    <div class="pt-sub">${most.count} errors across ${D.sessionsAnalysed} sessions</div>
+  </div>
+  <div class="prio-tile green">
+    <div class="pt-label">✅ Least Frequent</div>
+    <div class="pt-val">${least.icon} ${least.title}</div>
+    <div class="pt-sub">${least.count} errors — maintain this</div>
+  </div>
+  <div class="prio-tile blue">
+    <div class="pt-label">📋 Total Logged</div>
+    <div class="pt-val">${total} errors</div>
+    <div class="pt-sub">across ${D.sessionsAnalysed} assessed sessions</div>
+  </div>
+</div>
+<div class="pri-list">
+  <div class="pri-row"><div class="pri-dot r">1</div><div class="pri-txt"><strong>Start here → Plural & Singular Nouns.</strong> Your highest-frequency individual error at 7 instances. It is also the quickest win: once you pause after every countable noun and ask "one or many?", many of your Subject-Verb Agreement errors disappear automatically — because fixing the noun fixes the verb.</div></div>
+  <div class="pri-row"><div class="pri-dot r">2</div><div class="pri-txt"><strong>Then → Subject-Verb Agreement.</strong> Closely linked to plural nouns. Once plurals are consistent, SVA errors drop sharply. The remaining SVA issues (pronoun agreement in relative clauses, third-person -s) are a separate drill to practise during S4 study sessions.</div></div>
+  <div class="pri-row"><div class="pri-dot a">3</div><div class="pri-txt"><strong>Then → Verb Form + Relative Clauses (together).</strong> Both have short, memorisable rules: base form after modals; 'where' only for places. These are fast wins — three minutes of rule review before each essay session is enough to eliminate them.</div></div>
+  <div class="pri-row"><div class="pri-dot a">4</div><div class="pri-txt"><strong>Then → Prepositions & Conjunctions.</strong> 'Despite of', 'agree that', 'specialized on' are high-frequency fixed patterns. Memorise each as a complete unit. Write them on a revision card: <em>Despite X / argue that / specialise in</em>.</div></div>
+  <div class="pri-row"><div class="pri-dot g">5</div><div class="pri-txt"><strong>Longer term → Word Choice & Collocation.</strong> The most time-intensive category because it requires vocabulary depth, not rule application. Use the Oxford Collocations Dictionary for every key noun. This is the specific gap between Band 6.5 and Band 7.0 in Lexical Resource.</div></div>
+</div>
+<div class="insight">💡 <strong>Key pattern:</strong> Your errors split into two groups — <strong>mechanical</strong> (plurals, agreement, verb forms, prepositions) and <strong>precision</strong> (word choice, collocation). Mechanical errors follow learnable rules and can be eliminated quickly through deliberate proofreading habits. Precision errors require longer-term vocabulary exposure. Prioritise mechanical errors first — they produce faster score gains and simultaneously improve both Grammar and Lexical Resource band scores.</div>
+`;
+
+/* ── Categories ── */
+const catsEl = document.getElementById("cats");
+D.categories.forEach(cat => {
+  const entries = cat.errors.map((e,i) => `
+    <div class="entry">
+      <div class="entry-hdr">
+        <span class="e-num">Error ${i+1}</span>
+        <span class="s-tag">Session ${e.s}</span>
+      </div>
+      <div class="entry-body">
+        <div class="e-row">
+          <span class="e-ico">❌</span>
+          <span class="e-txt">${parse(e.w)}</span>
+        </div>
+        <div class="e-row fix-row">
+          <span class="e-ico">✅</span>
+          <span class="e-txt">${parse(e.f)}</span>
+        </div>
+        <div class="e-row note-row">
+          <span class="e-ico">💬</span>
+          <span class="note-txt">${e.n}</span>
+        </div>
+      </div>
+    </div>`).join("");
+
+  const div = document.createElement("div");
+  div.className = "cat";
+  div.id = "c-" + cat.id;
+  div.innerHTML = `
+    <div class="cat-hdr" style="border-left-color:${cat.color}" onclick="tog('${cat.id}')">
+      <span class="cat-icon">${cat.icon}</span>
+      <span class="cat-name">${cat.title}</span>
+      <span class="cat-badge" style="background:${cat.color}">${cat.count} error${cat.count!==1?"s":""}</span>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="cat-body">
+      <div class="rec"><div class="rec-lbl">💡 How to improve</div>${cat.rec}</div>
+      ${entries}
+      <div class="cat-footer">${cat.count} error${cat.count!==1?"s":""} in this category</div>
+    </div>`;
+  catsEl.appendChild(div);
+});
+
+function tog(id) {
+  document.getElementById("c-"+id).classList.toggle("closed");
+}
+</script>
+</body>
+</html>
