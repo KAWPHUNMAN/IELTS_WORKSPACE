@@ -78,8 +78,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#EEF2F7;min-height:1
 ═══════════════════════════════════════════════ -->
 <script>
 const D = {
-  lastUpdated:   "29 May 2026",
-  currentSession: 3,
+  lastUpdated:   "1 Jun 2026",
+  currentSession: 5,
   totalSessions:  35,
   currentPhase:   "Phase 1",
   target:         7.0,
@@ -98,21 +98,24 @@ const D = {
   writing: [
     { label:"Diagnostic", TA:6.0, CC:5.5, LR:5.0, GRA:5.5 },
     { label:"Session 3",  TA:6.5, CC:6.0, LR:5.5, GRA:5.5 },
+    { label:"Session 5",  TA:6.5, CC:6.0, LR:5.5, GRA:5.0 },
   ],
 
   /* Current priority errors — update each session */
   focus: [
+    "Causative verbs — 'make/let/help + object + base verb' (no 'to be') — 5 instances",
     "Plural nouns — always add -s to countable nouns",
     "Subject-verb agreement — match verb number to subject",
-    "Relative pronouns — which/that, never 'where' for non-places",
-    "Cohesion & coherence — varied and accurate linking devices",
+    "Unreal conditionals — 'if there were...' not 'if there is...'",
   ],
 
   /* Session log — add a row after each session */
   sessions: [
-    { n:1, type:"Diagnostic",    desc:"Task 2 diagnostic essay",              score:"5.5" },
-    { n:2, type:"Skill Study",   desc:"Thesis statement + introduction work",  score:null  },
-    { n:3, type:"Full Essay",    desc:"Planning method + Discussion essay",    score:"6.0" },
+    { n:1, type:"Diagnostic",    desc:"Task 2 diagnostic essay",                  score:"5.5" },
+    { n:2, type:"Skill Study",   desc:"Thesis statement + introduction rewrites",  score:null  },
+    { n:3, type:"Full Essay",    desc:"Planning method + Discussion essay",        score:"6.0" },
+    { n:4, type:"Skill Study",   desc:"Cohesion & coherence + paragraph rewrite",  score:null  },
+    { n:5, type:"Full Essay",    desc:"Opinion essay — internet infrastructure",   score:"6.0" },
   ],
 };
 </script>

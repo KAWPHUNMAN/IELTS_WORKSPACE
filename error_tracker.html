@@ -256,8 +256,8 @@ body.hide-corr .note-row{display:none;}
 ════════════════════════════════════════════════════ -->
 <script>
 const D = {
-  lastUpdated: "29 May 2026",
-  sessionsAnalysed: 3,
+  lastUpdated: "1 Jun 2026",
+  sessionsAnalysed: 5,
   categories: [
     {
       id:"sva", icon:"⚖️", title:"Subject-Verb Agreement",
@@ -273,7 +273,7 @@ const D = {
     },
     {
       id:"plural", icon:"🔢", title:"Plural & Singular Nouns",
-      color:"#f97316", priority:1, count:7,
+      color:"#f97316", priority:2, count:8,
       rec:"This is your single highest-frequency error and the easiest to fix. In IELTS Academic writing, general references are almost always plural: subjects, skills, jobs, careers, opportunities, boundaries, ways, lives. Develop a proofreading habit: after finishing a sentence, scan each countable noun and ask 'one or many?' One key exception: 'every' always takes a singular noun — 'every student', never 'every students'. By contrast, 'all' takes plural — 'all students'.",
       errors:[
         {s:1, w:"they should study only <E>subject</E> that would be beneficial.", f:"they should study only <E>subjects</E> that would be beneficial.", n:"General reference to academic subjects → always plural 'subjects'. This error also appeared as 'science and technology subject' three times in Session 3."},
@@ -283,6 +283,7 @@ const D = {
         {s:1, w:"making education free for every <E>students</E>.", f:"making education free for every <F>student</F>.", n:"'Every' always takes a singular countable noun: every student, every country, every person. Use 'all students' if you want the plural form."},
         {s:2, w:"students can be ready when their <E>live</E> is changing.", f:"students can be ready when their <F>lives</F> are changing.", n:"'Live' is a verb ('I live here'). The noun is 'life' (singular) or 'lives' (plural). When referring to multiple students, use 'lives'."},
         {s:1, w:"funds to be used in other beneficial <E>way</E>.", f:"funds to be used in other beneficial <F>ways</F>.", n:"Speaking generally about methods or options → plural 'ways'. Singular 'way' would refer to one specific method."},
+        {s:5, w:"<E>Business</E> depend on internet to operate.", f:"<F>Businesses</F> depend on the internet to operate.", n:"'Business' here refers to companies in general — plural noun needed. Also note: 'the internet' requires the definite article 'the'. Both errors appeared in the same short clause."},
       ]
     },
     {
@@ -298,7 +299,7 @@ const D = {
     },
     {
       id:"vocab", icon:"📖", title:"Word Choice & Collocation",
-      color:"#06b6d4", priority:5, count:9,
+      color:"#06b6d4", priority:5, count:10,
       rec:"Collocation errors — using words that do not naturally travel together — are the primary barrier between Band 6 and Band 7 Lexical Resource. The solution is not memorising more individual words; it is learning which words appear together. For every noun you use often (achievement, opportunity, skill, career), look it up in the Oxford Collocations Dictionary and learn its natural verb and adjective partners. Pay close attention to prepositions after verbs: 'specialise in', 'result in', 'contribute to' — these are fixed and cannot be substituted.",
       errors:[
         {s:1, w:"<E>educators</E> need to pay for their own tuition fees.", f:"<F>students</F> need to pay for their own tuition fees.", n:"'Educators' means teachers, professors, and trainers — people who educate others. You intended 'students'. This is a meaning error: it states the opposite of the intended argument."},
@@ -310,23 +311,27 @@ const D = {
         {s:3, w:"tasks where they are <E>specialized on</E>.", f:"tasks <F>in which they specialise</F>.", n:"The verb 'specialise' always collocates with 'in' — never 'on'. This is a fixed collocation: specialise in engineering, specialise in a field, specialists in their area."},
         {s:1, w:"intrinsic motivation leads to <E>a higher</E> academic achievement.", f:"intrinsic motivation leads to <F>higher</F> academic achievement.", n:"'Academic achievement' used in this general sense is uncountable — it refers to the concept of achieving, not to countable achievements. Uncountable nouns do not take the article 'a'."},
         {s:3, w:"students who study <E>their interests</E> will perform better.", f:"students who study <F>subjects that align with their interests</F> will perform better.", n:"You cannot 'study your interests' — interests are feelings or preferences, not subjects. Say 'study subjects that interest them', 'pursue their academic passions', or 'study in their area of interest'."},
+        {s:4, w:"when students study subjects they are <E>niche in</E>.", f:"when students study subjects they are <F>passionate about / excel in</F>.", n:"'Niche' is a noun meaning a specialised market or position (e.g. 'a niche market', 'find your niche'). It does not mean 'good at' or 'interested in'. Use 'subjects they are passionate about', 'subjects they excel in', or 'subjects in their area of expertise'."},
       ]
     },
     {
       id:"verbform", icon:"🔧", title:"Verb Form & Structure",
-      color:"#f59e0b", priority:3, count:5,
-      rec:"Three rules to memorise and never break: (1) After a modal verb — will, can, should, must, would — the following verb is always the bare infinitive (base form). No -s, no -ed, no -ing. (2) After causative verbs — let, make, help, have — the following verb takes no 'to'. Say 'let students choose', never 'let students to choose'. (3) 'Well' is an adverb that modifies action verbs. It cannot follow 'be' as a standalone description of ability. Use 'perform well', 'do well', or 'excel'.",
+      color:"#f59e0b", priority:1, count:8,
+      rec:"⚠️ CRITICAL PATTERN — this error has appeared in every single session. The causative verb rule: after make, let, have, help — the following verb is the bare infinitive with NO 'to' and NO 'be'. Write 'make students confident', never 'make students to be confident'. If you want 'to', switch to a different verb: 'enable students to improve', 'allow students to choose'. Check every sentence containing 'make' or 'making' before you submit. Additional rules: (1) After modal verbs (will, can, should), always use the base form. (2) For unreal/hypothetical situations, use past tense in the if-clause: 'if there were no internet', not 'if there is no internet'.",
       errors:[
         {s:3, w:"I believe this will ultimately <E>leads</E> to a more prosperous society.", f:"I believe this will ultimately <F>lead</F> to a more prosperous society.", n:"After the modal verb 'will', always use the base form. 'Will leads' is never grammatically correct in English."},
         {s:2, w:"<E>letting students to choose</E> subjects they enjoy.", f:"<F>letting students choose</F> subjects they enjoy.", n:"Causative verbs (let, make, have, help) are followed by the bare infinitive — the base form with no 'to'. 'Let students choose', 'make students study', 'help students improve'."},
         {s:1, w:"<E>By making tuition fee to be free</E> for all students.", f:"<F>By making tuition free</F> for all students.", n:"The pattern is 'make + object + adjective'. 'To be' is redundant after 'make'. Also: 'tuition fees' (plural) or simply 'tuition' (uncountable) — 'tuition fee' is singular and incorrect here."},
         {s:1, w:"some students who does not <E>met</E> the academic criteria.", f:"some students who do not <F>meet</F> the academic criteria.", n:"'Met' is the past tense and past participle of 'meet'. After 'do not / does not', always use the bare infinitive: 'do not meet'. Never use the past tense form after an auxiliary."},
         {s:2, w:"it could make them to <E>be exceptionally well</E> on certain tasks.", f:"it could enable them to <F>perform exceptionally well</F> on certain tasks.", n:"'Well' is an adverb. It cannot follow the verb 'be' as if it were an adjective describing a state. Use an action verb: 'perform well', 'do well', 'excel in'. Also: 'make them to' → 'enable them to' (see causative verb rule above)."},
+        {s:4, w:"This <E>makes student to be more determine</E> to study.", f:"This <F>makes students more determined</F> to study.", n:"Three errors in one phrase: (1) 'student' → 'students' (plural noun); (2) 'to be' is redundant after 'makes' — causative verb rule; (3) 'determine' → 'determined' — an adjective is needed after 'makes someone', not a verb. This is the fourth time this causative pattern has appeared."},
+        {s:5, w:"It would <E>make the nation to be uncontrollably chaos</E>.", f:"It would <F>leave the nation in complete chaos</F>.", n:"Two errors: (1) 'make... to be' — causative verb error, fifth appearance. (2) 'uncontrollably chaos' — 'chaos' is a noun and cannot be modified by an adverb. Use 'complete chaos', 'utter chaos', or restructure: 'render the nation ungovernable'."},
+        {s:5, w:"if there <E>are</E> no internet access in these services.", f:"if there <F>were</F> no internet access in these services.", n:"Hypothetical/unreal conditionals use past tense in the if-clause, even when talking about the present or future: 'if there were no internet...' not 'if there is no internet...'. This signals to the reader that you are imagining an unlikely scenario, not stating a fact."},
       ]
     },
     {
       id:"prep", icon:"🔀", title:"Prepositions & Conjunctions",
-      color:"#10b981", priority:4, count:5,
+      color:"#10b981", priority:4, count:7,
       rec:"Several of these errors appear to come from applying Thai sentence logic to English. Key fixes: (1) 'Despite' is a preposition that directly precedes a noun phrase — it never takes 'of'. Use 'Despite X' or, if you want 'of', switch to 'In spite of X'. (2) 'Agree' and 'disagree' are not used to introduce debate positions in an essay — use 'believe', 'argue', 'contend', or 'maintain'. (3) Prepositions after verbs are fixed — learn these as complete units: specialise in, result in, depend on, contribute to, focus on, aim at.",
       errors:[
         {s:2, w:"<E>Despite of</E> decreasing government funds.", f:"<F>Despite</F> the reduction in government funds.", n:"'Despite' never takes 'of'. It directly precedes the noun: 'Despite the problem', 'Despite the cost'. If you want to use 'of', switch the whole phrase to 'In spite of X'."},
@@ -334,15 +339,19 @@ const D = {
         {s:1, w:"others <E>disagree that</E> students should pay.", f:"others <F>argue that</F> students should bear the cost.", n:"'Disagree that X should happen' grammatically means you think X should NOT happen — the opposite of what was intended. To introduce the view that students should pay, write 'others argue that students should pay'."},
         {s:3, w:"tasks where they are <E>specialized on</E>.", f:"tasks <F>in which they specialise</F>.", n:"The correct collocation is always 'specialise in'. This applies universally: specialise in engineering, a doctor who specialises in cardiology, tasks they specialise in."},
         {s:1, w:"it could be used <E>some where</E> else besides education.", f:"it could be used <F>somewhere</F> else besides education.", n:"'Somewhere' is one word, not two. The same pattern applies to all indefinite place words: anywhere, everywhere, nowhere, somewhere — all written as single words."},
+        {s:4, w:"when students <E>study on</E> subjects they enjoy.", f:"when students <F>study</F> subjects they enjoy.", n:"'Study' does not take a preposition before its object. You study something directly: 'study mathematics', 'study this topic'. Do not add 'on', 'about', or 'for' between 'study' and the subject."},
+        {s:5, w:"the government should <E>prioritize on</E> improving internet access.", f:"the government should <F>prioritize</F> improving internet access.", n:"'Prioritize' takes a direct object — no preposition needed. Write 'prioritize improving X', 'prioritize education', 'prioritize infrastructure'. Never 'prioritize on' or 'prioritize about'."},
       ]
     },
     {
       id:"structure", icon:"🏗️", title:"Sentence Structure & Fragments",
-      color:"#ec4899", priority:6, count:2,
+      color:"#ec4899", priority:6, count:4,
       rec:"Every English sentence needs one clear main subject and one main verb — that is the non-negotiable core. A prepositional phrase ('By doing X') or a participial phrase ('Finding Y') cannot serve as the grammatical subject. For complex sentences, write the subject-verb core first, then attach subordinate clauses. For a thesis statement specifically: it must be ONE sentence. Use subordinating conjunctions ('although', 'while', 'because') and commas to connect the concession, your position, and your reason into a single, well-formed sentence.",
       errors:[
         {s:1, w:"individuals will have a higher certainty to do well academically <E>c ,finding a better paying job, Hence, increasing the overall GDP</E>.", f:"individuals will perform better academically, <F>secure better-paying jobs, and thereby contribute to a higher national GDP</F>.", n:"Three separate ideas were strung together as fragments after a comma splice. Each idea should be a parallel verb phrase: 'perform better academically', 'secure better-paying jobs', 'contribute to a higher GDP'. The 'c' suggests this was an accidental keystroke left uncorrected."},
         {s:2, w:"<E>Although students can be more creative. I believe by studying science subject. Students will have a better thinking process.</E>", f:"<F>Although studying freely may nurture creativity, I believe students should be guided toward science subjects because they develop the critical thinking skills essential for modern life.</F>", n:"A thesis statement must be one sentence. Three full stops created three disconnected fragments. Use 'although' for the concession, a comma, then 'I believe that... because...' for your position and reason — all within one complex sentence."},
+        {s:5, w:"<E>Requiring a hefty funds to be used to develop a more developed internet infrastructure.</E>", f:"<F>This growing demand requires substantial investment in more advanced internet infrastructure.</F>", n:"Fragment with no subject — 'Requiring...' is a participial phrase that cannot stand alone as a sentence. It needs a subject and a main verb. Also: 'a hefty funds' → 'substantial funds' ('funds' is already plural, no 'a'); 'a more developed infrastructure' → 'more advanced infrastructure'."},
+        {s:5, w:"Spending on internet is therefore not competing with public services, <E>it directly enables them.</E>", f:"Spending on internet is therefore not competing with public services<F>; it directly enables them.</F>", n:"Comma splice — two independent clauses joined by only a comma. Replace the comma with a semicolon, or start a new sentence. A comma alone is never strong enough to join two complete sentences."},
       ]
     },
   ]
