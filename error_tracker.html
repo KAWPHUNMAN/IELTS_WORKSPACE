@@ -256,12 +256,12 @@ body.hide-corr .note-row{display:none;}
 ════════════════════════════════════════════════════ -->
 <script>
 const D = {
-  lastUpdated: "1 Jun 2026",
-  sessionsAnalysed: 5,
+  lastUpdated: "11 Jun 2026",
+  sessionsAnalysed: 6,
   categories: [
     {
       id:"sva", icon:"⚖️", title:"Subject-Verb Agreement",
-      color:"#ef4444", priority:2, count:5,
+      color:"#ef4444", priority:2, count:6,
       rec:"Before choosing a verb, identify the true subject and check if it is singular or plural. The most common trap: a singular noun appearing near a plural one can confuse you into choosing the wrong verb. Underline the grammatical subject in each sentence and ask: 'is this one thing or more than one?' Then pick the matching verb. Watch especially for 'the government', 'a student', 'each person' — all singular, all need -s on the verb.",
       errors:[
         {s:1, w:"science <E>subject build</E> transferable skills.", f:"science <F>subjects build</F> transferable skills.", n:"'Science subject' is singular — but the intended meaning is plural 'subjects'. Plural subject → plural verb, no -s. Fix the noun first and the verb agreement follows."},
@@ -269,12 +269,13 @@ const D = {
         {s:1, w:"some students who <E>does not met</E> the academic criteria.", f:"some students who <F>do not meet</F> the academic criteria.", n:"'Some students' is plural → 'do not', not 'does not'. This error also involves verb form ('met' → 'meet') — see the Verb Form category."},
         {s:1, w:"subjects <E>they interests</E> supports their development.", f:"subjects <F>that interest</F> them supports their development.", n:"'Subjects' is the subject of the relative clause — plural. The verb 'interest' takes no -s. A relative pronoun ('that') is also needed to connect the clause."},
         {s:3, w:"the thinking skills where <E>it is</E> crucial in modern life.", f:"the thinking skills that/which <F>are</F> crucial in modern life.", n:"'Thinking skills' is plural → 'are', not 'is'. Also note: 'where' is wrong here — see Relative Clauses category."},
+        {s:6, w:"some topics that <E>is</E> relevant to our courses.", f:"some topics that <F>are</F> relevant to our courses.", n:"'Topics' is plural, so the relative pronoun 'that' refers to a plural subject — the verb must be 'are', not 'is'. This is the first time this pattern has shown up in spoken English, not just writing — a sign it needs to become an automatic reflex in everything you say, not just what you proofread."},
       ]
     },
     {
       id:"plural", icon:"🔢", title:"Plural & Singular Nouns",
-      color:"#f97316", priority:2, count:8,
-      rec:"This is your single highest-frequency error and the easiest to fix. In IELTS Academic writing, general references are almost always plural: subjects, skills, jobs, careers, opportunities, boundaries, ways, lives. Develop a proofreading habit: after finishing a sentence, scan each countable noun and ask 'one or many?' One key exception: 'every' always takes a singular noun — 'every student', never 'every students'. By contrast, 'all' takes plural — 'all students'.",
+      color:"#f97316", priority:2, count:9,
+      rec:"This is your single highest-frequency error and the easiest to fix. In IELTS Academic writing, general references are almost always plural: subjects, skills, jobs, careers, opportunities, boundaries, ways, lives. Develop a proofreading habit: after finishing a sentence, scan each countable noun and ask 'one or many?' One key exception: 'every' always takes a singular noun — 'every student', never 'every students'. By contrast, 'all' takes plural — 'all students'. Important counter-rule: this 'add -s for general statements' habit only applies to COUNTABLE nouns. Words like pollution, traffic, information, advice, and equipment are UNCOUNTABLE and never take -s, even when speaking generally.",
       errors:[
         {s:1, w:"they should study only <E>subject</E> that would be beneficial.", f:"they should study only <E>subjects</E> that would be beneficial.", n:"General reference to academic subjects → always plural 'subjects'. This error also appeared as 'science and technology subject' three times in Session 3."},
         {s:1, w:"learning with no <E>boundary</E> may nurture creativity.", f:"learning with no <F>boundaries</F> may nurture creativity.", n:"'Boundary' is countable. Speaking of limits in general → plural 'boundaries'."},
@@ -284,17 +285,19 @@ const D = {
         {s:2, w:"students can be ready when their <E>live</E> is changing.", f:"students can be ready when their <F>lives</F> are changing.", n:"'Live' is a verb ('I live here'). The noun is 'life' (singular) or 'lives' (plural). When referring to multiple students, use 'lives'."},
         {s:1, w:"funds to be used in other beneficial <E>way</E>.", f:"funds to be used in other beneficial <F>ways</F>.", n:"Speaking generally about methods or options → plural 'ways'. Singular 'way' would refer to one specific method."},
         {s:5, w:"<E>Business</E> depend on internet to operate.", f:"<F>Businesses</F> depend on the internet to operate.", n:"'Business' here refers to companies in general — plural noun needed. Also note: 'the internet' requires the definite article 'the'. Both errors appeared in the same short clause."},
+        {s:6, w:"Apart from air <E>pollutions</E> and also noise pollution.", f:"Apart from air <F>pollution</F> and also noise pollution.", n:"'Pollution' is uncountable — like traffic, information, or advice — and never takes -s, even in general statements. This is the mirror image of your usual error: the 'add -s for general reference' rule applies only to COUNTABLE nouns. Before adding -s, ask: 'can I count these — one pollution, two pollutions?' If not, leave it singular."},
       ]
     },
     {
       id:"clauses", icon:"🔗", title:"Relative Clauses & Pronouns",
-      color:"#8b5cf6", priority:3, count:4,
-      rec:"One rule, no exceptions: 'where' is only used for physical locations. For all other relative clauses use 'which' (for things), 'who' (for people), 'that' (for things or people), or 'in which / at which' for more formal academic writing. Each time you write 'where', stop and ask: 'Am I pointing to a physical place?' If not — change it. This error appeared in three consecutive sessions, which means it is an ingrained habit that needs conscious correction every time you write.",
+      color:"#8b5cf6", priority:3, count:5,
+      rec:"One rule, no exceptions: 'where' is only used for physical locations. For all other relative clauses use 'which' (for things), 'who' (for people), 'that' (for things or people), or 'in which / at which' for more formal academic writing. Each time you write 'where', stop and ask: 'Am I pointing to a physical place?' If not — change it. This error appeared in four sessions now, including spoken English, which means it is an ingrained habit that needs conscious correction every time you speak or write.",
       errors:[
         {s:3, w:"the thinking skills <E>where</E> it is crucial in modern life.", f:"the thinking skills <F>that/which</F> are crucial in modern life.", n:"'Thinking skills' is not a place. Use 'that' (less formal) or 'which' (more formal) to introduce a relative clause about a thing."},
         {s:3, w:"certain tasks <E>where</E> they are specialized on.", f:"certain tasks <F>in which</F> they specialise.", n:"'Tasks' is not a place. In academic writing, 'in which' is preferred for prepositional relative clauses: 'tasks in which they specialise'."},
         {s:2, w:"despite their young age <E>where</E> they could feel overwhelmed.", f:"despite their young age, <F>at which</F> they might feel overwhelmed.", n:"'Age' is a time concept, not a location. Use 'at which' ('an age at which') or restructure: 'despite being young and potentially overwhelmed by the experience'."},
         {s:1, w:"subjects <E>they interests</E> supports their development.", f:"subjects <F>that interest</F> them supports their development.", n:"The relative pronoun 'that' is missing entirely. Without it, the clause 'they interests' is attached to 'subjects' with no grammatical connector. Always include the relative pronoun when connecting a clause to the noun it modifies."},
+        {s:6, w:"do financial stuff <E>where if you do in paper</E> it would be much more difficult.", f:"do financial stuff, <F>whereas doing it on paper would be</F> much more difficult.", n:"'Where' was used here to introduce a contrast — but 'where' only works for physical places (see the rule above). For contrasts, use 'whereas' or 'while'. Two smaller issues in the same sentence: 'on paper' needs the preposition 'on' (not 'in paper'), and the conditional ('if you do... it would be') doesn't match — a comparison structure ('doing X would be...') fits better than 'if'."},
       ]
     },
     {
