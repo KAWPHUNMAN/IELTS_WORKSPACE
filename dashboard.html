@@ -145,6 +145,22 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .cl-date{font-weight:700;color:var(--accent);font-size:11px;margin-bottom:2px;}
 .cl-empty{font-size:12px;color:var(--muted);}
 
+/* ── Study Calendar ── */
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.cal-title{font-size:13px;font-weight:700;color:var(--text);}
+.cal-nav{border:1px solid var(--border);background:var(--surface2);color:var(--accent);font-size:14px;font-weight:700;width:30px;height:30px;border-radius:8px;cursor:pointer;}
+.cal-nav:hover{background:var(--track);}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}
+.cal-dow{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);text-align:center;padding-bottom:4px;}
+.cal-cell{aspect-ratio:1;border-radius:6px;background:var(--track);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--faint);transition:background .25s,color .25s;}
+.cal-cell.empty{background:transparent;}
+.cal-cell.on{background:var(--accent2);color:#fff;font-weight:800;}
+.cal-cell.today{box-shadow:0 0 0 2px var(--accent) inset;}
+.cal-legend{display:flex;align-items:center;justify-content:flex-end;gap:6px;margin-top:10px;font-size:10px;color:var(--muted);}
+.cal-swatch{width:14px;height:14px;border-radius:4px;display:inline-block;}
+.cal-swatch.off{background:var(--track);}
+.cal-swatch.on{background:var(--accent2);}
+
 @media(max-width:560px){.row4{grid-template-columns:repeat(2,1fr);}.row2{grid-template-columns:1fr;}.rm-body{padding-right:0;}.rm-score{position:static;display:inline-block;margin-top:8px;}}
 </style>
 </head>
@@ -237,6 +253,20 @@ const D = {
     { n:35, type:"📘 STUDY", title:"Exam preparation", desc:"Review logistics, vocabulary consolidation, rest.", status:"planned", band:null },
   ],
 
+  /* Study calendar — every date you came in and did an IELTS session (YYYY-MM-DD).
+     Sessions 1-5 dates are estimated (spaced 1-2 days apart, working back from
+     Session 6's confirmed date of 11 Jun 2026). Add the real date here after each
+     future session. */
+  studyDays: [
+    "2026-06-03", // Session 1 (estimated)
+    "2026-06-05", // Session 2 (estimated)
+    "2026-06-06", // Session 3 (estimated)
+    "2026-06-08", // Session 4 (estimated)
+    "2026-06-09", // Session 5 (estimated)
+    "2026-06-11", // Session 6 (confirmed)
+    "2026-06-15", // Session 7 (confirmed)
+  ],
+
   /* Changelog — every time a planned session's activity is changed */
   changelog: [
     { date:"11 Jun 2026", text:"Session 6 changed from the originally planned “Writing Task 1 — line graphs & bar charts (STUDY)” to “Speaking Part 1 — diagnostic baseline”. Reason: get an early read on Speaking ability before reaching Phase 2, while writing momentum from Sessions 3–5 was still fresh." },
@@ -316,6 +346,19 @@ const D = {
       <span id="prog-pct">—</span>
     </div>
     <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+  </div>
+
+  <!-- Study Calendar -->
+  <div class="card row1">
+    <div class="card-title">📅 Study Calendar</div>
+    <div class="card-sub">Each box is a day. A lit box marks a day you came in and did an IELTS session.</div>
+    <div class="cal-header">
+      <button class="cal-nav" onclick="calMonth(-1)">‹</button>
+      <div class="cal-title" id="cal-title">—</div>
+      <button class="cal-nav" onclick="calMonth(1)">›</button>
+    </div>
+    <div class="cal-grid" id="cal-grid"></div>
+    <div class="cal-legend"><span class="cal-swatch off"></span> no session <span class="cal-swatch on"></span> studied</div>
   </div>
 
   <!-- 35-Session Roadmap -->
@@ -478,6 +521,37 @@ const pct = Math.round(D.currentSession / D.totalSessions * 100);
 document.getElementById("prog-fill").style.width = pct + "%";
 document.getElementById("prog-pct").textContent = pct + "%";
 document.getElementById("prog-lbl").textContent = D.currentSession + " of " + D.totalSessions + " sessions completed";
+
+/* ── Study Calendar ── */
+const studySet = new Set(D.studyDays);
+const today = new Date();
+let calDate = new Date(today.getFullYear(), today.getMonth(), 1);
+const DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+function renderCalendar(){
+  const y = calDate.getFullYear(), m = calDate.getMonth();
+  document.getElementById("cal-title").textContent = MONTHS[m] + " " + y;
+  const grid = document.getElementById("cal-grid");
+  grid.innerHTML = "";
+  DOW.forEach(d => grid.innerHTML += `<div class="cal-dow">${d}</div>`);
+
+  const firstDow = new Date(y, m, 1).getDay();
+  const daysInMonth = new Date(y, m + 1, 0).getDate();
+  for (let i = 0; i < firstDow; i++) grid.innerHTML += `<div class="cal-cell empty"></div>`;
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const ds = y + "-" + String(m+1).padStart(2,"0") + "-" + String(d).padStart(2,"0");
+    const on = studySet.has(ds);
+    const isToday = (y===today.getFullYear() && m===today.getMonth() && d===today.getDate());
+    grid.innerHTML += `<div class="cal-cell ${on?"on":""} ${isToday?"today":""}">${d}</div>`;
+  }
+}
+function calMonth(delta){
+  calDate.setMonth(calDate.getMonth() + delta);
+  renderCalendar();
+}
+renderCalendar();
 
 /* ── 35-Session Roadmap ── */
 const rl = document.getElementById("roadmap-list");
