@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +8,66 @@
 <style>
 :root { color-scheme: light; }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:#EEF2F7;min-height:100vh;}
+
+/* ══ THEMES ══════════════════════════════════════════ */
+[data-theme="dark"] {
+  --bg:#0F172A; --surface:#1E293B; --surface2:#243448; --border:#334155;
+  --text:#E2E8F0; --muted:#94A3B8; --faint:#475569;
+  --accent:#60A5FA; --accent2:#3B82F6;
+  --err:#F87171; --err-bg:rgba(248,113,113,.13);
+  --fix:#4ADE80; --fix-bg:rgba(74,222,128,.13);
+  --note-bg:rgba(96,165,250,.07); --sum-bg:rgba(96,165,250,.05);
+  --track:#334155; --pill-active:#2563EB;
+  --hdr1:#1F4E79; --hdr2:#2E75B6;
+  --shadow:rgba(0,0,0,.4);
+  --chart-grid:rgba(255,255,255,.08); --chart-tick:#94A3B8;
+  --chart-target:#60A5FA; --chart-band7:#F87171;
+}
+[data-theme="light"] {
+  --bg:#EEF2F7; --surface:#FFFFFF; --surface2:#F8FAFC; --border:#E2E8F0;
+  --text:#0F172A; --muted:#475569; --faint:#94A3B8;
+  --accent:#1F4E79; --accent2:#2E75B6;
+  --err:#DC2626; --err-bg:rgba(220,38,38,.08);
+  --fix:#16A34A; --fix-bg:rgba(22,163,74,.08);
+  --note-bg:rgba(37,99,235,.05); --sum-bg:rgba(37,99,235,.03);
+  --track:#E2E8F0; --pill-active:#2563EB;
+  --hdr1:#1F4E79; --hdr2:#2E75B6;
+  --shadow:rgba(0,0,0,.1);
+  --chart-grid:#f0f0f0; --chart-tick:#666;
+  --chart-target:#1F4E79; --chart-band7:#dc3545;
+}
+[data-theme="claude"] {
+  --bg:#F2E8D5; --surface:#FBF4E6; --surface2:#F5EBD3; --border:#DDD0B3;
+  --text:#1C1208; --muted:#7A6040; --faint:#B09060;
+  --accent:#B45309; --accent2:#92400E;
+  --err:#9A3412; --err-bg:rgba(154,52,18,.10);
+  --fix:#166534; --fix-bg:rgba(22,101,52,.10);
+  --note-bg:rgba(180,83,9,.07); --sum-bg:rgba(180,83,9,.04);
+  --track:#DDD0B3; --pill-active:#B45309;
+  --hdr1:#78350F; --hdr2:#B45309;
+  --shadow:rgba(92,60,20,.2);
+  --chart-grid:rgba(0,0,0,.06); --chart-tick:#7A6040;
+  --chart-target:#92400E; --chart-band7:#9A3412;
+}
+
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s;}
 
 /* ── Header ── */
-.hdr{background:linear-gradient(135deg,#1F4E79 0%,#2E75B6 100%);color:#fff;padding:18px 20px 14px;}
+.hdr{background:linear-gradient(135deg,var(--hdr1) 0%,var(--hdr2) 100%);color:#fff;padding:18px 20px 14px;}
 .hdr-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;}
 .hdr h1{font-size:17px;font-weight:700;letter-spacing:-.2px;}
 .hdr-sub{font-size:11px;opacity:.75;margin-top:3px;}
 .badge{background:rgba(255,255,255,.18);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:600;}
 .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+
+/* ── Settings bar ── */
+.settings-bar{background:var(--surface);border-bottom:2px solid var(--border);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px var(--shadow);}
+.s-group{display:flex;align-items:center;gap:10px;}
+.s-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);}
+.theme-pill{display:flex;background:var(--track);border-radius:22px;padding:3px;gap:2px;}
+.t-btn{border:none;background:transparent;color:var(--muted);padding:5px 13px;border-radius:18px;font-size:12px;font-weight:600;cursor:pointer;transition:all .25s;white-space:nowrap;}
+.t-btn.on{background:var(--pill-active);color:#fff;box-shadow:0 1px 4px rgba(0,0,0,.35);}
+[data-theme="claude"] .t-btn.on{color:#fff;}
 
 /* ── Layout ── */
 .main{padding:14px;max-width:860px;margin:0 auto;}
@@ -25,50 +76,76 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#EEF2F7;min-height:1
 .row1{margin-bottom:14px;}
 
 /* ── Cards ── */
-.card{background:#fff;border-radius:10px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.07);}
-.card-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#1F4E79;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #EEF2F7;}
+.card{background:var(--surface);border-radius:10px;padding:16px;box-shadow:0 1px 3px var(--shadow);}
+.card-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--accent);margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--border);}
+.card-sub{font-size:11px;color:var(--muted);margin:-6px 0 12px;line-height:1.5;}
 .chart-wrap{position:relative;height:190px;}
 
 /* ── Score cards ── */
-.sc{text-align:center;background:#fff;border-radius:10px;padding:14px 8px;box-shadow:0 1px 3px rgba(0,0,0,.07);border-top:3px solid #ccc;}
+.sc{text-align:center;background:var(--surface);border-radius:10px;padding:14px 8px;box-shadow:0 1px 3px var(--shadow);border-top:3px solid var(--border);}
 .sc.green{border-top-color:#28a745;} .sc.amber{border-top-color:#ffc107;} .sc.red{border-top-color:#dc3545;}
-.sc-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:#888;margin-bottom:5px;}
-.sc-val{font-size:26px;font-weight:800;line-height:1;color:#1F4E79;}
+.sc-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);margin-bottom:5px;}
+.sc-val{font-size:26px;font-weight:800;line-height:1;color:var(--accent);}
 .sc.green .sc-val{color:#28a745;} .sc.red .sc-val{color:#dc3545;}
-.sc-tgt{font-size:10px;color:#bbb;margin-top:3px;}
+.sc-tgt{font-size:10px;color:var(--faint);margin-top:3px;}
 .tag{display:inline-block;margin-top:5px;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600;}
 .green .tag{background:#d1e7dd;color:#155724;} .amber .tag{background:#fff3cd;color:#664d03;} .red .tag{background:#f8d7da;color:#721c24;}
 
 /* ── Focus list ── */
-.fi{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #f5f5f5;font-size:12px;line-height:1.4;}
+.fi{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;line-height:1.4;}
 .fi:last-child{border-bottom:none;}
 .fi-n{width:19px;height:19px;border-radius:50%;background:#dc3545;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
 
 /* ── Session log ── */
-.si{display:flex;gap:9px;align-items:center;padding:7px 0;border-bottom:1px solid #f5f5f5;font-size:11px;}
+.si{display:flex;gap:9px;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:11px;}
 .si:last-child{border-bottom:none;}
-.si-n{width:22px;height:22px;border-radius:50%;background:#2E75B6;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.si-n{width:22px;height:22px;border-radius:50%;background:var(--hdr2);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .si-info{flex:1;}
-.si-type{font-weight:700;color:#1F4E79;font-size:11px;}
-.si-desc{color:#666;font-size:11px;margin-top:1px;}
+.si-type{font-weight:700;color:var(--accent);font-size:11px;}
+.si-desc{color:var(--muted);font-size:11px;margin-top:1px;}
 .si-score{font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap;}
-.si-score.y{background:#d1e7dd;color:#155724;} .si-score.n{background:#f0f0f0;color:#aaa;}
+.si-score.y{background:var(--fix-bg);color:var(--fix);} .si-score.n{background:var(--track);color:var(--faint);}
 
 /* ── Progress ── */
-.prog-hdr{display:flex;justify-content:space-between;font-size:11px;color:#666;margin-bottom:6px;}
-.prog-track{background:#e2e8f0;border-radius:20px;height:9px;}
-.prog-fill{height:100%;border-radius:20px;background:linear-gradient(90deg,#2E75B6,#1F4E79);}
+.prog-hdr{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:6px;}
+.prog-track{background:var(--track);border-radius:20px;height:9px;}
+.prog-fill{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--hdr2),var(--hdr1));}
 
 /* ── Phase indicator ── */
 .phases{display:flex;gap:0;margin-bottom:14px;}
 .ph{flex:1;padding:10px 6px;text-align:center;font-size:11px;font-weight:600;border-radius:0;}
 .ph:first-child{border-radius:8px 0 0 8px;} .ph:last-child{border-radius:0 8px 8px 0;}
-.ph.done{background:#1F4E79;color:#fff;}
-.ph.active{background:#2E75B6;color:#fff;box-shadow:inset 0 -3px 0 rgba(0,0,0,.2);}
-.ph.pending{background:#e2e8f0;color:#888;}
+.ph.done{background:var(--hdr1);color:#fff;}
+.ph.active{background:var(--hdr2);color:#fff;box-shadow:inset 0 -3px 0 rgba(0,0,0,.2);}
+.ph.pending{background:var(--track);color:var(--muted);}
 .ph-label{font-size:9px;font-weight:400;opacity:.85;margin-top:2px;}
 
-@media(max-width:560px){.row4{grid-template-columns:repeat(2,1fr);}.row2{grid-template-columns:1fr;}}
+/* ── Roadmap ── */
+.rm-list{display:flex;flex-direction:column;gap:8px;}
+.rm-item{display:flex;gap:12px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;position:relative;}
+.rm-item.current{border-left:4px solid var(--accent2);background:var(--note-bg);}
+.rm-item.planned{opacity:.6;}
+.rm-num{width:28px;height:28px;border-radius:50%;background:var(--faint);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.rm-item.done .rm-num{background:#28a745;}
+.rm-item.current .rm-num{background:var(--accent2);}
+.rm-body{flex:1;padding-right:62px;}
+.rm-type{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);}
+.rm-title{font-weight:700;font-size:12.5px;color:var(--text);margin-top:1px;}
+.rm-desc{font-size:11.5px;color:var(--muted);margin-top:3px;line-height:1.5;}
+.rm-score{position:absolute;bottom:8px;right:10px;font-size:10px;font-weight:800;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:4px 8px;color:var(--accent2);text-align:center;line-height:1.3;}
+.rm-score-lbl{font-size:7.5px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:var(--muted);display:block;margin-bottom:1px;}
+.rm-toggle{display:flex;justify-content:center;margin-top:10px;}
+.rm-toggle button{border:1px solid var(--border);background:var(--surface2);color:var(--accent);font-size:11px;font-weight:700;padding:7px 16px;border-radius:20px;cursor:pointer;}
+.rm-toggle button:hover{background:var(--track);}
+.rm-hidden{display:none;}
+
+/* ── Changelog ── */
+.cl-item{padding:10px 0;border-bottom:1px solid var(--border);font-size:12px;line-height:1.55;color:var(--text);}
+.cl-item:last-child{border-bottom:none;}
+.cl-date{font-weight:700;color:var(--accent);font-size:11px;margin-bottom:2px;}
+.cl-empty{font-size:12px;color:var(--muted);}
+
+@media(max-width:560px){.row4{grid-template-columns:repeat(2,1fr);}.row2{grid-template-columns:1fr;}.rm-body{padding-right:0;}.rm-score{position:static;display:inline-block;margin-top:8px;}}
 </style>
 </head>
 <body>
@@ -78,7 +155,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#EEF2F7;min-height:1
 ═══════════════════════════════════════════════ -->
 <script>
 const D = {
-  lastUpdated:   "11 Jun 2026",
+  lastUpdated:   "15 Jun 2026",
   currentSession: 6,
   totalSessions:  35,
   currentPhase:   "Phase 1",
@@ -109,7 +186,7 @@ const D = {
     "Causative verbs — 10/10 on recent drill; now apply it under time pressure in essays",
   ],
 
-  /* Session log — add a row after each session */
+  /* Session log — add a row after each session (skills summary, newest first when shown) */
   sessions: [
     { n:1, type:"Diagnostic",    desc:"Task 2 diagnostic essay",                  score:"5.5" },
     { n:2, type:"Skill Study",   desc:"Thesis statement + introduction rewrites",  score:null  },
@@ -117,6 +194,53 @@ const D = {
     { n:4, type:"Skill Study",   desc:"Cohesion & coherence + paragraph rewrite",  score:null  },
     { n:5, type:"Full Essay",    desc:"Opinion essay — internet infrastructure",   score:"6.0" },
     { n:6, type:"Speaking",      desc:"Part 1 — diagnostic baseline (5 questions)", score:"6.0" },
+  ],
+
+  /* 35-session roadmap — the detailed, session-by-session plan.
+     status: "done" | "current" | "planned"
+     band:   overall estimated band once the session is finished (null if not assessed) */
+  roadmap: [
+    { n:1,  type:"📘 STUDY / DIAGNOSTIC", title:"Diagnostic Task 2 essay", desc:"Establish a writing baseline.", status:"done", band:5.5 },
+    { n:2,  type:"📘 STUDY", title:"Thesis statement + introduction rewrites", desc:"“Although… I believe…” template.", status:"done", band:null },
+    { n:3,  type:"✍️ PRACTICE", title:"Planning method + full Discussion essay (40 min)", desc:"No borrowed phrases.", status:"done", band:6.0 },
+    { n:4,  type:"📘 STUDY", title:"Cohesion & coherence", desc:"4 categories of linking devices; avoid mechanical “Furthermore”.", status:"done", band:null },
+    { n:5,  type:"✍️ PRACTICE", title:"Full Discussion essay (40 min)", desc:"Focus: varied cohesive devices throughout. Topic: internet infrastructure.", status:"done", band:6.0 },
+    { n:6,  type:"🔊 SPEAKING", title:"Part 1 — diagnostic baseline (5 questions)", desc:"Early read on Speaking ability before reaching Phase 2.", status:"done", band:6.0 },
+    { n:7,  type:"📘 STUDY", title:"Writing Task 1 — line graphs & bar charts", desc:"Overview sentence technique; describing trends over time.", status:"current", band:null },
+    { n:8,  type:"📘 STUDY", title:"Lexical resource", desc:"Collocations, paraphrase, avoiding repetition.", status:"planned", band:null },
+    { n:9,  type:"✍️ PRACTICE", title:"Full Discussion essay (40 min)", desc:"Zero borrowed phrases, no notes.", status:"planned", band:null },
+    { n:10, type:"📘 STUDY", title:"Writing Task 1 — pie charts, tables & process diagrams", desc:"Structuring non-line-graph Task 1 reports.", status:"planned", band:null },
+    { n:11, type:"📘 STUDY", title:"Grammar deep-dive", desc:"Complex sentences, relative clauses, conditionals, passive voice.", status:"planned", band:null },
+    { n:12, type:"✍️ PRACTICE", title:"Full Problem-Solution essay (40 min)", desc:"Deliberately use 2 complex structures per paragraph.", status:"planned", band:null },
+    { n:13, type:"📘 STUDY", title:"Writing Task 1 — mixed types, timed", desc:"1 graph + 1 process, 40 minutes total.", status:"planned", band:null },
+    { n:14, type:"📘 STUDY", title:"Academic vocabulary", desc:"Collocations for Education, Technology, Society, Environment.", status:"planned", band:null },
+    { n:15, type:"✍️ PRACTICE", title:"Full Two-Part Question essay (40 min)", desc:"Self-assess using band descriptors afterwards.", status:"planned", band:null },
+    { n:16, type:"🔍 REVIEW", title:"Rewrite weakest essay (S5–S15) to Band 7", desc:"Update the active error log.", status:"planned", band:null },
+    { n:17, type:"✍️ PRACTICE", title:"Full Discussion essay (40 min)", desc:"Aim: zero entries from the Active Error Log.", status:"planned", band:null },
+    { n:18, type:"📋 MOCK", title:"Writing mock test", desc:"Task 1 (20 min) + Task 2 (40 min), strict exam conditions.", status:"planned", band:null },
+    { n:19, type:"📘 STUDY", title:"Speaking Part 1 — the 3-part response", desc:"Answer + Reason + Example; never one sentence.", status:"planned", band:null },
+    { n:20, type:"🔊 SPEAKING", title:"Record 10 Part 1 questions (10 min)", desc:"Self-assess fluency and vocabulary.", status:"planned", band:null },
+    { n:21, type:"📘 STUDY", title:"Speaking Part 2 — 1-minute prep technique", desc:"Noting 4 bullet points on the topic card.", status:"planned", band:null },
+    { n:22, type:"🔊 SPEAKING", title:"Record 3 Part 2 long-turn answers", desc:"Assess coherence and vocabulary range.", status:"planned", band:null },
+    { n:23, type:"✍️ PRACTICE", title:"Writing maintenance — full Discussion essay (40 min)", desc:"Keep writing skills active during the Speaking block.", status:"planned", band:null },
+    { n:24, type:"📘 STUDY", title:"Speaking Part 3 — 6 language functions", desc:"Speculation, comparison, cause & effect, hypothetical, concession, evaluation.", status:"planned", band:null },
+    { n:25, type:"🔊 SPEAKING", title:"Record Part 3 answers (20 min)", desc:"Topics: Society and Technology.", status:"planned", band:null },
+    { n:26, type:"✍️ PRACTICE", title:"Writing maintenance — full Outweigh essay (40 min)", desc:"Keep writing skills active during the Speaking block.", status:"planned", band:null },
+    { n:27, type:"📋 MOCK", title:"Full simulated Speaking test", desc:"Parts 1, 2, 3 with timer; write out the Part 3 transcript afterwards.", status:"planned", band:null },
+    { n:28, type:"📋 MOCK", title:"Full Writing mock", desc:"Task 1 (20 min) + Task 2 (40 min); self-assess and submit.", status:"planned", band:null },
+    { n:29, type:"📋 MOCK", title:"Full Reading mock", desc:"3 passages, 40 questions, 60 minutes.", status:"planned", band:null },
+    { n:30, type:"📋 MOCK", title:"Full Listening mock", desc:"4 sections, 40 questions, 30 minutes + transfer.", status:"planned", band:null },
+    { n:31, type:"📋 MOCK", title:"Full Speaking simulation", desc:"Parts 1, 2, 3; record and self-assess.", status:"planned", band:null },
+    { n:32, type:"📋 MOCK", title:"Four-skill mock — Day 1", desc:"Listening (40 min) + Reading (60 min), full exam conditions.", status:"planned", band:null },
+    { n:33, type:"📋 MOCK", title:"Four-skill mock — Day 2", desc:"Writing (60 min) + Speaking simulation; review all.", status:"planned", band:null },
+    { n:34, type:"🔍 REVIEW", title:"Final error review", desc:"Address only critical recurring patterns; no new material.", status:"planned", band:null },
+    { n:35, type:"📘 STUDY", title:"Exam preparation", desc:"Review logistics, vocabulary consolidation, rest.", status:"planned", band:null },
+  ],
+
+  /* Changelog — every time a planned session's activity is changed */
+  changelog: [
+    { date:"11 Jun 2026", text:"Session 6 changed from the originally planned “Writing Task 1 — line graphs & bar charts (STUDY)” to “Speaking Part 1 — diagnostic baseline”. Reason: get an early read on Speaking ability before reaching Phase 2, while writing momentum from Sessions 3–5 was still fresh." },
+    { date:"15 Jun 2026", text:"Session 7 changed from the originally planned “Full Outweigh essay (PRACTICE)” to “Writing Task 1 — line graphs & bar charts (STUDY)” — the plan displaced from Session 6. Reason: keep the Writing Task 1 introduction in the sequence rather than skip it." },
   ],
 };
 </script>
@@ -134,6 +258,17 @@ const D = {
     <span class="badge">🎯 Target: Band 7.0–7.5</span>
     <span class="badge" id="s-badge">—</span>
     <span class="badge" id="ph-badge">—</span>
+  </div>
+</div>
+
+<div class="settings-bar">
+  <div class="s-group">
+    <span class="s-label">Theme</span>
+    <div class="theme-pill">
+      <button class="t-btn on" data-t="dark"  onclick="setTheme('dark')">🌙 Dark</button>
+      <button class="t-btn"    data-t="light" onclick="setTheme('light')">☀️ Light</button>
+      <button class="t-btn"    data-t="claude" onclick="setTheme('claude')">✦ Claude</button>
+    </div>
   </div>
 </div>
 
@@ -183,6 +318,21 @@ const D = {
     <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
   </div>
 
+  <!-- 35-Session Roadmap -->
+  <div class="card row1">
+    <div class="card-title">🛣️ 35-Session Roadmap</div>
+    <div class="card-sub">The detailed, session-by-session plan. Activities can change as your needs evolve — see the Changelog at the bottom for a record of any updates.</div>
+    <div class="rm-list" id="roadmap-list"></div>
+    <div class="rm-toggle"><button id="rm-toggle-btn" onclick="toggleRoadmap()">Show all 35 sessions</button></div>
+  </div>
+
+  <!-- Changelog -->
+  <div class="card row1">
+    <div class="card-title">📝 Changelog — Plan Adjustments</div>
+    <div class="card-sub">A record of every time a session's planned activity was changed to better fit your progress.</div>
+    <div id="changelog-list"></div>
+  </div>
+
 </div>
 
 <script>
@@ -214,6 +364,17 @@ skills.forEach(sk => {
   </div>`;
 });
 
+/* ── Theme-aware chart colors ── */
+function chartColors(){
+  const cs = getComputedStyle(document.documentElement);
+  return {
+    grid:   cs.getPropertyValue("--chart-grid").trim(),
+    tick:   cs.getPropertyValue("--chart-tick").trim(),
+    target: cs.getPropertyValue("--chart-target").trim(),
+    band7:  cs.getPropertyValue("--chart-band7").trim(),
+  };
+}
+
 /* ── History chart ── */
 const clr = {
   L:{bg:"rgba(40,167,69,.65)",  b:"#28a745"},
@@ -221,60 +382,76 @@ const clr = {
   W:{bg:"rgba(220,53,69,.65)",  b:"#dc3545"},
   S:{bg:"rgba(255,193,7,.65)",  b:"#e0a800"},
 };
-new Chart(document.getElementById("histChart"), {
-  type:"bar",
-  data:{
-    labels: D.tests.map(t=>t.label),
-    datasets:[
-      ...skills.map(sk=>({
-        label: names[sk], data: D.tests.map(t=>t[sk]),
-        backgroundColor: clr[sk].bg, borderColor: clr[sk].b,
-        borderWidth:1.5, borderRadius:4,
-      })),
-      { label:"Target (7.0)", data: D.tests.map(()=>D.target),
-        type:"line", borderColor:"#1F4E79", borderDash:[5,3],
-        borderWidth:2, pointRadius:0, fill:false, tension:0 }
-    ]
-  },
-  options:{
-    responsive:true, maintainAspectRatio:false,
-    plugins:{legend:{labels:{font:{size:10},boxWidth:11,padding:8}}},
-    scales:{
-      y:{min:4,max:9,ticks:{stepSize:1,font:{size:10}},grid:{color:"#f0f0f0"}},
-      x:{ticks:{font:{size:10}},grid:{display:false}}
-    }
-  }
-});
-
-/* ── Writing criterion chart ── */
 const wk = ["TA","CC","LR","GRA"], wl = ["Task Achievement","Coherence","Lexical Resource","Grammar"];
 const wPalette = ["rgba(46,117,182,.7)","rgba(31,78,121,.8)","rgba(46,117,182,.4)"];
 const wBorder  = ["#2E75B6","#1F4E79","#7bafd4"];
-new Chart(document.getElementById("wChart"), {
-  type:"bar",
-  data:{
-    labels: wl,
-    datasets:[
-      ...D.writing.map((w,i)=>({
-        label: w.label, data: wk.map(k=>w[k]),
-        backgroundColor: wPalette[i]||"rgba(150,150,150,.5)",
-        borderColor: wBorder[i]||"#999",
-        borderWidth:1.5, borderRadius:4,
-      })),
-      { label:"Band 7", data: wk.map(()=>7.0),
-        type:"line", borderColor:"#dc3545", borderDash:[5,3],
-        borderWidth:2, pointRadius:0, fill:false, tension:0 }
-    ]
-  },
-  options:{
-    responsive:true, maintainAspectRatio:false,
-    plugins:{legend:{labels:{font:{size:10},boxWidth:11,padding:8}}},
-    scales:{
-      y:{min:4,max:8,ticks:{stepSize:.5,font:{size:10}},grid:{color:"#f0f0f0"}},
-      x:{ticks:{font:{size:10},maxRotation:25},grid:{display:false}}
+
+let histChart = null, wChart = null;
+
+function buildCharts(){
+  const tc = chartColors();
+  if (histChart) histChart.destroy();
+  if (wChart) wChart.destroy();
+
+  histChart = new Chart(document.getElementById("histChart"), {
+    type:"bar",
+    data:{
+      labels: D.tests.map(t=>t.label),
+      datasets:[
+        ...skills.map(sk=>({
+          label: names[sk], data: D.tests.map(t=>t[sk]),
+          backgroundColor: clr[sk].bg, borderColor: clr[sk].b,
+          borderWidth:1.5, borderRadius:4,
+        })),
+        { label:"Target (7.0)", data: D.tests.map(()=>D.target),
+          type:"line", borderColor: tc.target, borderDash:[5,3],
+          borderWidth:2, pointRadius:0, fill:false, tension:0 }
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{labels:{font:{size:10},boxWidth:11,padding:8,color:tc.tick}}},
+      scales:{
+        y:{min:4,max:9,ticks:{stepSize:1,font:{size:10},color:tc.tick},grid:{color:tc.grid}},
+        x:{ticks:{font:{size:10},color:tc.tick},grid:{display:false}}
+      }
     }
-  }
-});
+  });
+
+  wChart = new Chart(document.getElementById("wChart"), {
+    type:"bar",
+    data:{
+      labels: wl,
+      datasets:[
+        ...D.writing.map((w,i)=>({
+          label: w.label, data: wk.map(k=>w[k]),
+          backgroundColor: wPalette[i]||"rgba(150,150,150,.5)",
+          borderColor: wBorder[i]||"#999",
+          borderWidth:1.5, borderRadius:4,
+        })),
+        { label:"Band 7", data: wk.map(()=>7.0),
+          type:"line", borderColor: tc.band7, borderDash:[5,3],
+          borderWidth:2, pointRadius:0, fill:false, tension:0 }
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{labels:{font:{size:10},boxWidth:11,padding:8,color:tc.tick}}},
+      scales:{
+        y:{min:4,max:8,ticks:{stepSize:.5,font:{size:10},color:tc.tick},grid:{color:tc.grid}},
+        x:{ticks:{font:{size:10},maxRotation:25,color:tc.tick},grid:{display:false}}
+      }
+    }
+  });
+}
+buildCharts();
+
+/* ── Theme switching ── */
+function setTheme(t){
+  document.documentElement.setAttribute("data-theme", t);
+  document.querySelectorAll(".t-btn").forEach(b => b.classList.toggle("on", b.dataset.t===t));
+  buildCharts();
+}
 
 /* ── Focus list ── */
 const fl = document.getElementById("focus-list");
@@ -301,6 +478,44 @@ const pct = Math.round(D.currentSession / D.totalSessions * 100);
 document.getElementById("prog-fill").style.width = pct + "%";
 document.getElementById("prog-pct").textContent = pct + "%";
 document.getElementById("prog-lbl").textContent = D.currentSession + " of " + D.totalSessions + " sessions completed";
+
+/* ── 35-Session Roadmap ── */
+const rl = document.getElementById("roadmap-list");
+let roadmapExpanded = false;
+function renderRoadmap(){
+  rl.innerHTML = "";
+  D.roadmap.forEach(r => {
+    const hide = (!roadmapExpanded && r.status==="planned" && r.n > D.currentSession + 2) ? " rm-hidden" : "";
+    const score = (r.band !== null)
+      ? `<div class="rm-score"><span class="rm-score-lbl">Overall Band</span>~${r.band.toFixed(1)}</div>`
+      : "";
+    rl.innerHTML += `<div class="rm-item ${r.status}${hide}">
+      <div class="rm-num">${r.n}</div>
+      <div class="rm-body">
+        <div class="rm-type">${r.type}</div>
+        <div class="rm-title">${r.title}</div>
+        <div class="rm-desc">${r.desc}</div>
+      </div>
+      ${score}
+    </div>`;
+  });
+}
+function toggleRoadmap(){
+  roadmapExpanded = !roadmapExpanded;
+  document.getElementById("rm-toggle-btn").textContent = roadmapExpanded ? "Show fewer sessions" : "Show all 35 sessions";
+  renderRoadmap();
+}
+renderRoadmap();
+
+/* ── Changelog ── */
+const cl = document.getElementById("changelog-list");
+if (D.changelog.length === 0) {
+  cl.innerHTML = `<div class="cl-empty">No plan adjustments yet.</div>`;
+} else {
+  [...D.changelog].reverse().forEach(c => {
+    cl.innerHTML += `<div class="cl-item"><div class="cl-date">${c.date}</div>${c.text}</div>`;
+  });
+}
 </script>
 </body>
 </html>
