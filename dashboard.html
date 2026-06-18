@@ -171,8 +171,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 ═══════════════════════════════════════════════ -->
 <script>
 const D = {
-  lastUpdated:   "15 Jun 2026",
-  currentSession: 6,
+  lastUpdated:   "18 Jun 2026",
+  currentSession: 7,
   totalSessions:  35,
   currentPhase:   "Phase 1",
   target:         7.0,
@@ -192,14 +192,16 @@ const D = {
     { label:"Diagnostic", TA:6.0, CC:5.5, LR:5.0, GRA:5.5 },
     { label:"Session 3",  TA:6.5, CC:6.0, LR:5.5, GRA:5.5 },
     { label:"Session 5",  TA:6.5, CC:6.0, LR:5.5, GRA:5.0 },
+    { label:"Session 7",  TA:6.0, CC:6.0, LR:6.0, GRA:5.5 },
   ],
 
   /* Current priority errors — update each session */
   focus: [
-    "Subject-verb agreement — now appearing in speech too ('topics that is' → 'are')",
-    "Uncountable nouns — no -s on pollution, traffic, information, advice",
-    "Relative clauses — 'where' is only for places; use 'whereas/while' for contrast",
-    "Causative verbs — 10/10 on recent drill; now apply it under time pressure in essays",
+    "Over time vs overtime — two words always; 'overtime' means working extra hours",
+    "Its vs it's — possessive 'its' has no apostrophe ('it's' = 'it is' only)",
+    "Sentence fragments — every sentence needs a subject; watch for orphan participles ('Ended with...')",
+    "Percentage points — use for changes (fell by 6pp); use 'figure/share/percentage' for absolute values",
+    "Causative past tense — 'this made X drop' not 'this makes X dropped'",
   ],
 
   /* Session log — add a row after each session (skills summary, newest first when shown) */
@@ -210,6 +212,7 @@ const D = {
     { n:4, type:"Skill Study",   desc:"Cohesion & coherence + paragraph rewrite",  score:null  },
     { n:5, type:"Full Essay",    desc:"Opinion essay — internet infrastructure",   score:"6.0" },
     { n:6, type:"Speaking",      desc:"Part 1 — diagnostic baseline (5 questions)", score:"6.0" },
+    { n:7, type:"Writing Task 1", desc:"Line graph — electricity generation by source (study + practice)", score:"6.0" },
   ],
 
   /* 35-session roadmap — the detailed, session-by-session plan.
@@ -222,8 +225,8 @@ const D = {
     { n:4,  type:"📘 STUDY", title:"Cohesion & coherence", desc:"4 categories of linking devices; avoid mechanical “Furthermore”.", status:"done", band:null },
     { n:5,  type:"✍️ PRACTICE", title:"Full Discussion essay (40 min)", desc:"Focus: varied cohesive devices throughout. Topic: internet infrastructure.", status:"done", band:6.0 },
     { n:6,  type:"🔊 SPEAKING", title:"Part 1 — diagnostic baseline (5 questions)", desc:"Early read on Speaking ability before reaching Phase 2.", status:"done", band:6.0 },
-    { n:7,  type:"📘 STUDY", title:"Writing Task 1 — line graphs & bar charts", desc:"Overview sentence technique; describing trends over time.", status:"current", band:null },
-    { n:8,  type:"📘 STUDY", title:"Lexical resource", desc:"Collocations, paraphrase, avoiding repetition.", status:"planned", band:null },
+    { n:7,  type:"📘 STUDY", title:"Writing Task 1 — line graphs & bar charts", desc:"Overview sentence technique; describing trends over time.", status:"done", band:6.0 },
+    { n:8,  type:"📘 STUDY", title:"Lexical resource", desc:"Collocations, paraphrase, avoiding repetition.", status:"current", band:null },
     { n:9,  type:"✍️ PRACTICE", title:"Full Discussion essay (40 min)", desc:"Zero borrowed phrases, no notes.", status:"planned", band:null },
     { n:10, type:"📘 STUDY", title:"Writing Task 1 — pie charts, tables & process diagrams", desc:"Structuring non-line-graph Task 1 reports.", status:"planned", band:null },
     { n:11, type:"📘 STUDY", title:"Grammar deep-dive", desc:"Complex sentences, relative clauses, conditionals, passive voice.", status:"planned", band:null },
@@ -265,6 +268,7 @@ const D = {
     "2026-06-09", // Session 5 (estimated)
     "2026-06-11", // Session 6 (confirmed)
     "2026-06-15", // Session 7 (confirmed)
+    "2026-06-18", // Session 8 start / Session 7 completed
   ],
 
   /* Changelog — every time a planned session's activity is changed */
@@ -581,15 +585,4 @@ function toggleRoadmap(){
 }
 renderRoadmap();
 
-/* ── Changelog ── */
-const cl = document.getElementById("changelog-list");
-if (D.changelog.length === 0) {
-  cl.innerHTML = `<div class="cl-empty">No plan adjustments yet.</div>`;
-} else {
-  [...D.changelog].reverse().forEach(c => {
-    cl.innerHTML += `<div class="cl-item"><div class="cl-date">${c.date}</div>${c.text}</div>`;
-  });
-}
-</script>
-</body>
-</html>
+/* ── Change

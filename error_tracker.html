@@ -256,8 +256,8 @@ body.hide-corr .note-row{display:none;}
 ════════════════════════════════════════════════════ -->
 <script>
 const D = {
-  lastUpdated: "11 Jun 2026",
-  sessionsAnalysed: 6,
+  lastUpdated: "18 Jun 2026",
+  sessionsAnalysed: 7,
   categories: [
     {
       id:"sva", icon:"⚖️", title:"Subject-Verb Agreement",
@@ -274,7 +274,7 @@ const D = {
     },
     {
       id:"plural", icon:"🔢", title:"Plural & Singular Nouns",
-      color:"#f97316", priority:2, count:9,
+      color:"#f97316", priority:2, count:10,
       rec:"This is your single highest-frequency error and the easiest to fix. In IELTS Academic writing, general references are almost always plural: subjects, skills, jobs, careers, opportunities, boundaries, ways, lives. Develop a proofreading habit: after finishing a sentence, scan each countable noun and ask 'one or many?' One key exception: 'every' always takes a singular noun — 'every student', never 'every students'. By contrast, 'all' takes plural — 'all students'. Important counter-rule: this 'add -s for general statements' habit only applies to COUNTABLE nouns. Words like pollution, traffic, information, advice, and equipment are UNCOUNTABLE and never take -s, even when speaking generally.",
       errors:[
         {s:1, w:"they should study only <E>subject</E> that would be beneficial.", f:"they should study only <E>subjects</E> that would be beneficial.", n:"General reference to academic subjects → always plural 'subjects'. This error also appeared as 'science and technology subject' three times in Session 3."},
@@ -286,6 +286,7 @@ const D = {
         {s:1, w:"funds to be used in other beneficial <E>way</E>.", f:"funds to be used in other beneficial <F>ways</F>.", n:"Speaking generally about methods or options → plural 'ways'. Singular 'way' would refer to one specific method."},
         {s:5, w:"<E>Business</E> depend on internet to operate.", f:"<F>Businesses</F> depend on the internet to operate.", n:"'Business' here refers to companies in general — plural noun needed. Also note: 'the internet' requires the definite article 'the'. Both errors appeared in the same short clause."},
         {s:6, w:"Apart from air <E>pollutions</E> and also noise pollution.", f:"Apart from air <F>pollution</F> and also noise pollution.", n:"'Pollution' is uncountable — like traffic, information, or advice — and never takes -s, even in general statements. This is the mirror image of your usual error: the 'add -s for general reference' rule applies only to COUNTABLE nouns. Before adding -s, ask: 'can I count these — one pollution, two pollutions?' If not, leave it singular."},
+        {s:7, w:"3 energy <E>sources</E> factors.", f:"3 energy <F>source</F> factors.", n:"Noun premodifier rule: when a noun modifies another noun, it stays singular — 'energy source', 'fossil fuel consumption', 'percentage point change'. Only the final noun in the phrase takes a plural when needed. Think of it like a compound: 'a car door' (not 'a cars door'), 'an essay question' (not 'an essays question')."},
       ]
     },
     {
@@ -302,7 +303,7 @@ const D = {
     },
     {
       id:"vocab", icon:"📖", title:"Word Choice & Collocation",
-      color:"#06b6d4", priority:5, count:10,
+      color:"#06b6d4", priority:5, count:13,
       rec:"Collocation errors — using words that do not naturally travel together — are the primary barrier between Band 6 and Band 7 Lexical Resource. The solution is not memorising more individual words; it is learning which words appear together. For every noun you use often (achievement, opportunity, skill, career), look it up in the Oxford Collocations Dictionary and learn its natural verb and adjective partners. Pay close attention to prepositions after verbs: 'specialise in', 'result in', 'contribute to' — these are fixed and cannot be substituted.",
       errors:[
         {s:1, w:"<E>educators</E> need to pay for their own tuition fees.", f:"<F>students</F> need to pay for their own tuition fees.", n:"'Educators' means teachers, professors, and trainers — people who educate others. You intended 'students'. This is a meaning error: it states the opposite of the intended argument."},
@@ -315,11 +316,14 @@ const D = {
         {s:1, w:"intrinsic motivation leads to <E>a higher</E> academic achievement.", f:"intrinsic motivation leads to <F>higher</F> academic achievement.", n:"'Academic achievement' used in this general sense is uncountable — it refers to the concept of achieving, not to countable achievements. Uncountable nouns do not take the article 'a'."},
         {s:3, w:"students who study <E>their interests</E> will perform better.", f:"students who study <F>subjects that align with their interests</F> will perform better.", n:"You cannot 'study your interests' — interests are feelings or preferences, not subjects. Say 'study subjects that interest them', 'pursue their academic passions', or 'study in their area of interest'."},
         {s:4, w:"when students study subjects they are <E>niche in</E>.", f:"when students study subjects they are <F>passionate about / excel in</F>.", n:"'Niche' is a noun meaning a specialised market or position (e.g. 'a niche market', 'find your niche'). It does not mean 'good at' or 'interested in'. Use 'subjects they are passionate about', 'subjects they excel in', or 'subjects in their area of expertise'."},
+        {s:7, w:"fossil fuel trend <E>dramatically decreased</E>.", f:"the fossil fuel <F>share fell</F> dramatically.", n:"A 'trend' is the pattern you observe — it cannot itself increase or decrease. What moves is the share, proportion, figure, or percentage. Also acceptable: treat the energy source as the subject directly — 'fossil fuels fell dramatically'. Never write 'the trend decreased/increased'."},
+        {s:7, w:"<E>overtime</E>, the share declined.", f:"<F>Over time</F>, the share declined.", n:"'Overtime' is one word meaning extra working hours beyond a normal shift (e.g. 'I worked overtime last night'). The phrase meaning 'gradually as time passes' is always two words: 'over time'. This error appeared in two separate attempts in the same session — write 'over time' ten times to make it automatic."},
+        {s:7, w:"more than half of <E>it's</E> original percentage.", f:"more than half of <F>its</F> original percentage.", n:"'It's' is always a contraction of 'it is' or 'it has'. The possessive pronoun has no apostrophe: 'its share', 'its value', 'its initial figure'. Test: replace 'it's' with 'it is' — if the sentence breaks, remove the apostrophe."},
       ]
     },
     {
       id:"verbform", icon:"🔧", title:"Verb Form & Structure",
-      color:"#f59e0b", priority:1, count:8,
+      color:"#f59e0b", priority:1, count:10,
       rec:"⚠️ CRITICAL PATTERN — this error has appeared in every single session. The causative verb rule: after make, let, have, help — the following verb is the bare infinitive with NO 'to' and NO 'be'. Write 'make students confident', never 'make students to be confident'. If you want 'to', switch to a different verb: 'enable students to improve', 'allow students to choose'. Check every sentence containing 'make' or 'making' before you submit. Additional rules: (1) After modal verbs (will, can, should), always use the base form. (2) For unreal/hypothetical situations, use past tense in the if-clause: 'if there were no internet', not 'if there is no internet'.",
       errors:[
         {s:3, w:"I believe this will ultimately <E>leads</E> to a more prosperous society.", f:"I believe this will ultimately <F>lead</F> to a more prosperous society.", n:"After the modal verb 'will', always use the base form. 'Will leads' is never grammatically correct in English."},
@@ -330,6 +334,8 @@ const D = {
         {s:4, w:"This <E>makes student to be more determine</E> to study.", f:"This <F>makes students more determined</F> to study.", n:"Three errors in one phrase: (1) 'student' → 'students' (plural noun); (2) 'to be' is redundant after 'makes' — causative verb rule; (3) 'determine' → 'determined' — an adjective is needed after 'makes someone', not a verb. This is the fourth time this causative pattern has appeared."},
         {s:5, w:"It would <E>make the nation to be uncontrollably chaos</E>.", f:"It would <F>leave the nation in complete chaos</F>.", n:"Two errors: (1) 'make... to be' — causative verb error, fifth appearance. (2) 'uncontrollably chaos' — 'chaos' is a noun and cannot be modified by an adverb. Use 'complete chaos', 'utter chaos', or restructure: 'render the nation ungovernable'."},
         {s:5, w:"if there <E>are</E> no internet access in these services.", f:"if there <F>were</F> no internet access in these services.", n:"Hypothetical/unreal conditionals use past tense in the if-clause, even when talking about the present or future: 'if there were no internet...' not 'if there is no internet...'. This signals to the reader that you are imagining an unlikely scenario, not stating a fact."},
+        {s:7, w:"the trajectory <E>had fluctuate</E> the trend.", f:"the trend <F>reversed / began to decline</F>.", n:"Two problems: (1) 'had fluctuate' → 'had fluctuated' — the past participle is always required after 'had'. (2) 'fluctuate' means moving up and down irregularly — it is wrong for a consistent one-direction change. Nuclear's share only declined after 2010; the correct verb is 'reversed', 'declined', or 'fell'. Also: a trajectory cannot 'fluctuate a trend' — the subject of the verb must be the share itself."},
+        {s:7, w:"This <E>makes</E> nuclear energy trend <E>dropped</E> to 3rd place.", f:"This <F>made</F> nuclear power <F>drop</F> to third place.", n:"Past-tense causative structure: 'made + object + base verb'. The base verb (no -s, no -ed) must follow the object directly. 'Makes...dropped' mixes present tense with past — both must agree. Correct: 'made nuclear power drop', 'caused nuclear to fall', 'pushed nuclear into third place'."},
       ]
     },
     {
@@ -348,13 +354,14 @@ const D = {
     },
     {
       id:"structure", icon:"🏗️", title:"Sentence Structure & Fragments",
-      color:"#ec4899", priority:6, count:4,
+      color:"#ec4899", priority:6, count:5,
       rec:"Every English sentence needs one clear main subject and one main verb — that is the non-negotiable core. A prepositional phrase ('By doing X') or a participial phrase ('Finding Y') cannot serve as the grammatical subject. For complex sentences, write the subject-verb core first, then attach subordinate clauses. For a thesis statement specifically: it must be ONE sentence. Use subordinating conjunctions ('although', 'while', 'because') and commas to connect the concession, your position, and your reason into a single, well-formed sentence.",
       errors:[
         {s:1, w:"individuals will have a higher certainty to do well academically <E>c ,finding a better paying job, Hence, increasing the overall GDP</E>.", f:"individuals will perform better academically, <F>secure better-paying jobs, and thereby contribute to a higher national GDP</F>.", n:"Three separate ideas were strung together as fragments after a comma splice. Each idea should be a parallel verb phrase: 'perform better academically', 'secure better-paying jobs', 'contribute to a higher GDP'. The 'c' suggests this was an accidental keystroke left uncorrected."},
         {s:2, w:"<E>Although students can be more creative. I believe by studying science subject. Students will have a better thinking process.</E>", f:"<F>Although studying freely may nurture creativity, I believe students should be guided toward science subjects because they develop the critical thinking skills essential for modern life.</F>", n:"A thesis statement must be one sentence. Three full stops created three disconnected fragments. Use 'although' for the concession, a comma, then 'I believe that... because...' for your position and reason — all within one complex sentence."},
         {s:5, w:"<E>Requiring a hefty funds to be used to develop a more developed internet infrastructure.</E>", f:"<F>This growing demand requires substantial investment in more advanced internet infrastructure.</F>", n:"Fragment with no subject — 'Requiring...' is a participial phrase that cannot stand alone as a sentence. It needs a subject and a main verb. Also: 'a hefty funds' → 'substantial funds' ('funds' is already plural, no 'a'); 'a more developed infrastructure' → 'more advanced infrastructure'."},
         {s:5, w:"Spending on internet is therefore not competing with public services, <E>it directly enables them.</E>", f:"Spending on internet is therefore not competing with public services<F>; it directly enables them.</F>", n:"Comma splice — two independent clauses joined by only a comma. Replace the comma with a semicolon, or start a new sentence. A comma alone is never strong enough to join two complete sentences."},
+        {s:7, w:"<E>Ended with 22% of its share</E> by the end of the year 2020.", f:"<F>Nuclear power ended the period at 22%</F>, the lowest of the three sources.", n:"Sentence fragment — 'Ended with...' has no subject. A past participle opening a sentence must either (a) be attached to a clause that follows ('Ending at 22%, nuclear power had...'), or (b) be given its own subject and rewritten as a full sentence. Watch for any sentence beginning with a verb in -ed or -ing form: it is almost always a fragment."},
       ]
     },
   ]
@@ -462,59 +469,4 @@ document.getElementById("sum").innerHTML = `
 <div class="pri-list">
   <div class="pri-row"><div class="pri-dot r">1</div><div class="pri-txt"><strong>Start here → Plural & Singular Nouns.</strong> Your highest-frequency individual error at 7 instances. It is also the quickest win: once you pause after every countable noun and ask "one or many?", many of your Subject-Verb Agreement errors disappear automatically — because fixing the noun fixes the verb.</div></div>
   <div class="pri-row"><div class="pri-dot r">2</div><div class="pri-txt"><strong>Then → Subject-Verb Agreement.</strong> Closely linked to plural nouns. Once plurals are consistent, SVA errors drop sharply. The remaining SVA issues (pronoun agreement in relative clauses, third-person -s) are a separate drill to practise during S4 study sessions.</div></div>
-  <div class="pri-row"><div class="pri-dot a">3</div><div class="pri-txt"><strong>Then → Verb Form + Relative Clauses (together).</strong> Both have short, memorisable rules: base form after modals; 'where' only for places. These are fast wins — three minutes of rule review before each essay session is enough to eliminate them.</div></div>
-  <div class="pri-row"><div class="pri-dot a">4</div><div class="pri-txt"><strong>Then → Prepositions & Conjunctions.</strong> 'Despite of', 'agree that', 'specialized on' are high-frequency fixed patterns. Memorise each as a complete unit. Write them on a revision card: <em>Despite X / argue that / specialise in</em>.</div></div>
-  <div class="pri-row"><div class="pri-dot g">5</div><div class="pri-txt"><strong>Longer term → Word Choice & Collocation.</strong> The most time-intensive category because it requires vocabulary depth, not rule application. Use the Oxford Collocations Dictionary for every key noun. This is the specific gap between Band 6.5 and Band 7.0 in Lexical Resource.</div></div>
-</div>
-<div class="insight">💡 <strong>Key pattern:</strong> Your errors split into two groups — <strong>mechanical</strong> (plurals, agreement, verb forms, prepositions) and <strong>precision</strong> (word choice, collocation). Mechanical errors follow learnable rules and can be eliminated quickly through deliberate proofreading habits. Precision errors require longer-term vocabulary exposure. Prioritise mechanical errors first — they produce faster score gains and simultaneously improve both Grammar and Lexical Resource band scores.</div>
-`;
-
-/* ── Categories ── */
-const catsEl = document.getElementById("cats");
-D.categories.forEach(cat => {
-  const entries = cat.errors.map((e,i) => `
-    <div class="entry">
-      <div class="entry-hdr">
-        <span class="e-num">Error ${i+1}</span>
-        <span class="s-tag">Session ${e.s}</span>
-      </div>
-      <div class="entry-body">
-        <div class="e-row">
-          <span class="e-ico">❌</span>
-          <span class="e-txt">${parse(e.w)}</span>
-        </div>
-        <div class="e-row fix-row">
-          <span class="e-ico">✅</span>
-          <span class="e-txt">${parse(e.f)}</span>
-        </div>
-        <div class="e-row note-row">
-          <span class="e-ico">💬</span>
-          <span class="note-txt">${e.n}</span>
-        </div>
-      </div>
-    </div>`).join("");
-
-  const div = document.createElement("div");
-  div.className = "cat";
-  div.id = "c-" + cat.id;
-  div.innerHTML = `
-    <div class="cat-hdr" style="border-left-color:${cat.color}" onclick="tog('${cat.id}')">
-      <span class="cat-icon">${cat.icon}</span>
-      <span class="cat-name">${cat.title}</span>
-      <span class="cat-badge" style="background:${cat.color}">${cat.count} error${cat.count!==1?"s":""}</span>
-      <span class="chevron">▼</span>
-    </div>
-    <div class="cat-body">
-      <div class="rec"><div class="rec-lbl">💡 How to improve</div>${cat.rec}</div>
-      ${entries}
-      <div class="cat-footer">${cat.count} error${cat.count!==1?"s":""} in this category</div>
-    </div>`;
-  catsEl.appendChild(div);
-});
-
-function tog(id) {
-  document.getElementById("c-"+id).classList.toggle("closed");
-}
-</script>
-</body>
-</html>
+  <div class="pri-row"><div class="pri-dot a">3</div><div class="pri-txt"><strong>Then → Verb Form + Relative Clauses (together).</strong> Bot
