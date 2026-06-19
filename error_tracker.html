@@ -469,4 +469,59 @@ document.getElementById("sum").innerHTML = `
 <div class="pri-list">
   <div class="pri-row"><div class="pri-dot r">1</div><div class="pri-txt"><strong>Start here → Plural & Singular Nouns.</strong> Your highest-frequency individual error at 7 instances. It is also the quickest win: once you pause after every countable noun and ask "one or many?", many of your Subject-Verb Agreement errors disappear automatically — because fixing the noun fixes the verb.</div></div>
   <div class="pri-row"><div class="pri-dot r">2</div><div class="pri-txt"><strong>Then → Subject-Verb Agreement.</strong> Closely linked to plural nouns. Once plurals are consistent, SVA errors drop sharply. The remaining SVA issues (pronoun agreement in relative clauses, third-person -s) are a separate drill to practise during S4 study sessions.</div></div>
-  <div class="pri-row"><div class="pri-dot a">3</div><div class="pri-txt"><strong>Then → Verb Form + Relative Clauses (together).</strong> Bot
+  <div class="pri-row"><div class="pri-dot a">3</div><div class="pri-txt"><strong>Then → Verb Form + Relative Clauses (together).</strong> Both have short, memorisable rules: base form after modals; 'where' only for places. These are fast wins — three minutes of rule review before each essay session is enough to eliminate them.</div></div>
+  <div class="pri-row"><div class="pri-dot a">4</div><div class="pri-txt"><strong>Then → Prepositions & Conjunctions.</strong> 'Despite of', 'agree that', 'specialized on' are high-frequency fixed patterns. Memorise each as a complete unit. Write them on a revision card: <em>Despite X / argue that / specialise in</em>.</div></div>
+  <div class="pri-row"><div class="pri-dot g">5</div><div class="pri-txt"><strong>Longer term → Word Choice & Collocation.</strong> The most time-intensive category because it requires vocabulary depth, not rule application. Use the Oxford Collocations Dictionary for every key noun. This is the specific gap between Band 6.5 and Band 7.0 in Lexical Resource.</div></div>
+</div>
+<div class="insight">💡 <strong>Key pattern:</strong> Your errors split into two groups — <strong>mechanical</strong> (plurals, agreement, verb forms, prepositions) and <strong>precision</strong> (word choice, collocation). Mechanical errors follow learnable rules and can be eliminated quickly through deliberate proofreading habits. Precision errors require longer-term vocabulary exposure. Prioritise mechanical errors first — they produce faster score gains and simultaneously improve both Grammar and Lexical Resource band scores.</div>
+`;
+
+/* ── Categories ── */
+const catsEl = document.getElementById("cats");
+D.categories.forEach(cat => {
+  const entries = cat.errors.map((e,i) => `
+    <div class="entry">
+      <div class="entry-hdr">
+        <span class="e-num">Error ${i+1}</span>
+        <span class="s-tag">Session ${e.s}</span>
+      </div>
+      <div class="entry-body">
+        <div class="e-row">
+          <span class="e-ico">❌</span>
+          <span class="e-txt">${parse(e.w)}</span>
+        </div>
+        <div class="e-row fix-row">
+          <span class="e-ico">✅</span>
+          <span class="e-txt">${parse(e.f)}</span>
+        </div>
+        <div class="e-row note-row">
+          <span class="e-ico">💬</span>
+          <span class="note-txt">${e.n}</span>
+        </div>
+      </div>
+    </div>`).join("");
+
+  const div = document.createElement("div");
+  div.className = "cat";
+  div.id = "c-" + cat.id;
+  div.innerHTML = `
+    <div class="cat-hdr" style="border-left-color:${cat.color}" onclick="tog('${cat.id}')">
+      <span class="cat-icon">${cat.icon}</span>
+      <span class="cat-name">${cat.title}</span>
+      <span class="cat-badge" style="background:${cat.color}">${cat.count} error${cat.count!==1?"s":""}</span>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="cat-body">
+      <div class="rec"><div class="rec-lbl">💡 How to improve</div>${cat.rec}</div>
+      ${entries}
+      <div class="cat-footer">${cat.count} error${cat.count!==1?"s":""} in this category</div>
+    </div>`;
+  catsEl.appendChild(div);
+});
+
+function tog(id) {
+  document.getElementById("c-"+id).classList.toggle("closed");
+}
+</script>
+</body>
+</html>

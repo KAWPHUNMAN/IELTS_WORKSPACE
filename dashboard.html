@@ -256,7 +256,10 @@ const D = {
     { n:35, type:"📘 STUDY", title:"Exam preparation", desc:"Review logistics, vocabulary consolidation, rest.", status:"planned", band:null },
   ],
 
-  /* Study calendar — every date you came in and did an IELTS session (YYYY-MM-DD). */
+  /* Study calendar — every date you came in and did an IELTS session (YYYY-MM-DD).
+     Sessions 1-5 dates are estimated (spaced 1-2 days apart, working back from
+     Session 6's confirmed date of 11 Jun 2026). Add the real date here after each
+     future session. */
   studyDays: [
     "2026-06-03", // Session 1 (estimated)
     "2026-06-05", // Session 2 (estimated)
@@ -427,8 +430,8 @@ const clr = {
   S:{bg:"rgba(255,193,7,.65)",  b:"#e0a800"},
 };
 const wk = ["TA","CC","LR","GRA"], wl = ["Task Achievement","Coherence","Lexical Resource","Grammar"];
-const wPalette = ["rgba(46,117,182,.7)","rgba(31,78,121,.8)","rgba(46,117,182,.4)","rgba(46,117,182,.25)"];
-const wBorder  = ["#2E75B6","#1F4E79","#7bafd4","#a8c4e0"];
+const wPalette = ["rgba(46,117,182,.7)","rgba(31,78,121,.8)","rgba(46,117,182,.4)"];
+const wBorder  = ["#2E75B6","#1F4E79","#7bafd4"];
 
 let histChart = null, wChart = null;
 
