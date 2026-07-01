@@ -256,7 +256,7 @@ body.hide-corr .note-row{display:none;}
 ════════════════════════════════════════════════════ -->
 <script>
 const D = {
-  lastUpdated: "18 Jun 2026",
+  lastUpdated: "1 Jul 2026",
   sessionsAnalysed: 7,
   categories: [
     {
@@ -274,7 +274,7 @@ const D = {
     },
     {
       id:"plural", icon:"🔢", title:"Plural & Singular Nouns",
-      color:"#f97316", priority:2, count:10,
+      color:"#f97316", priority:2, count:11,
       rec:"This is your single highest-frequency error and the easiest to fix. In IELTS Academic writing, general references are almost always plural: subjects, skills, jobs, careers, opportunities, boundaries, ways, lives. Develop a proofreading habit: after finishing a sentence, scan each countable noun and ask 'one or many?' One key exception: 'every' always takes a singular noun — 'every student', never 'every students'. By contrast, 'all' takes plural — 'all students'. Important counter-rule: this 'add -s for general statements' habit only applies to COUNTABLE nouns. Words like pollution, traffic, information, advice, and equipment are UNCOUNTABLE and never take -s, even when speaking generally.",
       errors:[
         {s:1, w:"they should study only <E>subject</E> that would be beneficial.", f:"they should study only <E>subjects</E> that would be beneficial.", n:"General reference to academic subjects → always plural 'subjects'. This error also appeared as 'science and technology subject' three times in Session 3."},
@@ -287,6 +287,7 @@ const D = {
         {s:5, w:"<E>Business</E> depend on internet to operate.", f:"<F>Businesses</F> depend on the internet to operate.", n:"'Business' here refers to companies in general — plural noun needed. Also note: 'the internet' requires the definite article 'the'. Both errors appeared in the same short clause."},
         {s:6, w:"Apart from air <E>pollutions</E> and also noise pollution.", f:"Apart from air <F>pollution</F> and also noise pollution.", n:"'Pollution' is uncountable — like traffic, information, or advice — and never takes -s, even in general statements. This is the mirror image of your usual error: the 'add -s for general reference' rule applies only to COUNTABLE nouns. Before adding -s, ask: 'can I count these — one pollution, two pollutions?' If not, leave it singular."},
         {s:7, w:"3 energy <E>sources</E> factors.", f:"3 energy <F>source</F> factors.", n:"Noun premodifier rule: when a noun modifies another noun, it stays singular — 'energy source', 'fossil fuel consumption', 'percentage point change'. Only the final noun in the phrase takes a plural when needed. Think of it like a compound: 'a car door' (not 'a cars door'), 'an essay question' (not 'an essays question')."},
+        {src:"Grammar Improvements", w:"go through <E>every materials</E> I've provided.", f:"go through <F>all the materials</F> I've provided. / go through <F>every material</F> I've provided.", n:"'Every' always takes a SINGULAR noun: every material, every book, every student. If you want the plural feel, switch the determiner to 'all the' -> 'all the materials'. Same rule as your earlier 'every students' slip: 'every' + singular is the reflex to build."},
       ]
     },
     {
@@ -303,7 +304,7 @@ const D = {
     },
     {
       id:"vocab", icon:"📖", title:"Word Choice & Collocation",
-      color:"#06b6d4", priority:5, count:13,
+      color:"#06b6d4", priority:5, count:14,
       rec:"Collocation errors — using words that do not naturally travel together — are the primary barrier between Band 6 and Band 7 Lexical Resource. The solution is not memorising more individual words; it is learning which words appear together. For every noun you use often (achievement, opportunity, skill, career), look it up in the Oxford Collocations Dictionary and learn its natural verb and adjective partners. Pay close attention to prepositions after verbs: 'specialise in', 'result in', 'contribute to' — these are fixed and cannot be substituted.",
       errors:[
         {s:1, w:"<E>educators</E> need to pay for their own tuition fees.", f:"<F>students</F> need to pay for their own tuition fees.", n:"'Educators' means teachers, professors, and trainers — people who educate others. You intended 'students'. This is a meaning error: it states the opposite of the intended argument."},
@@ -319,6 +320,7 @@ const D = {
         {s:7, w:"fossil fuel trend <E>dramatically decreased</E>.", f:"the fossil fuel <F>share fell</F> dramatically.", n:"A 'trend' is the pattern you observe — it cannot itself increase or decrease. What moves is the share, proportion, figure, or percentage. Also acceptable: treat the energy source as the subject directly — 'fossil fuels fell dramatically'. Never write 'the trend decreased/increased'."},
         {s:7, w:"<E>overtime</E>, the share declined.", f:"<F>Over time</F>, the share declined.", n:"'Overtime' is one word meaning extra working hours beyond a normal shift (e.g. 'I worked overtime last night'). The phrase meaning 'gradually as time passes' is always two words: 'over time'. This error appeared in two separate attempts in the same session — write 'over time' ten times to make it automatic."},
         {s:7, w:"more than half of <E>it's</E> original percentage.", f:"more than half of <F>its</F> original percentage.", n:"'It's' is always a contraction of 'it is' or 'it has'. The possessive pronoun has no apostrophe: 'its share', 'its value', 'its initial figure'. Test: replace 'it's' with 'it is' — if the sentence breaks, remove the apostrophe."},
+        {src:"Grammar Improvements", w:"Sometimes I wrote <E>a something</E> and I wanted to know the error.", f:"Sometimes I <F>write something</F> and I want to know the error.", n:"Two things here. (1) 'Something' is an indefinite pronoun and never takes the article 'a' -> just 'write something' (same for anything, nothing, everything). (2) Tense drift: you were describing a general habit, so use the present simple ('I write... I want'), not the past ('wrote... wanted'). Mixing the two mid-sentence is a common slip when speaking quickly."},
       ]
     },
     {
@@ -483,7 +485,7 @@ D.categories.forEach(cat => {
     <div class="entry">
       <div class="entry-hdr">
         <span class="e-num">Error ${i+1}</span>
-        <span class="s-tag">Session ${e.s}</span>
+        <span class="s-tag"${e.src?' style="background:#22c55e;color:#052e16;font-weight:700;"':''}>${e.src ? e.src : 'Session ' + e.s}</span>
       </div>
       <div class="entry-body">
         <div class="e-row">
